@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>To be changed</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+        </script>
+        
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        
+        
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        
+        
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        
+    </head>
+    <body >
+        <style>
+            body{
+                height:820px;
+                background-image: linear-gradient(to bottom right, #3851B1, #00EB96);
+                overflow: hidden;
+            }
+            .rounded{
+                border-radius: 1.25rem !important;
+            }
+            .center1{
+                padding-top: 0%;
+                padding-left: 20%;
+                padding-right: 20%;
+            }
+            .combo1{
+                padding-top: 10%;
+            }
+            legend span{
+                font-size:30px !important;
+                text-transform: uppercase;
+                background: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font: italic 700 1.3rem Rubik,sans-serif;
+            }
+            legend{
+                text-align:center;
+                font-weight:bold;
+                float:left;
+                width:590px;
+                padding:3px;
+                margin:10px 0px;
+                border-bottom:1px solid #fff;
+                border-top:1px solid #d9d9d9;
+            }
+            .legend1{
+                background: linear-gradient(to right, #48cfad 50%, white 50%);
+                background-size: 200% 100%;
+                animation-name: animatelegend;
+                animation-duration: 2s;
+            }
+            .legend2{
+                background: linear-gradient(to right, white 50%, #48cfad 50%);
+                background-size: 200% 100%;
+                animation-name: animatelegend2;
+                animation-duration: 2s;
+            }
+            .event-error,.event-location-error,.sports-location-error{
+                color: red;
+            }
+            .next{
+                margin: 5%;
+                vertical-align: bottom;
+                display: none;
+            }
+            .container{
+                width:100%;
+            }
+            .locate{
+                padding-right: 20%;
+                padding-left: 20%;
+            }
+            ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                padding-left: 15px;
+            }
+            input[type=text] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .mapboxgl-ctrl-geocoder--icon{
+                display: none;
+            }
+            #autocomplete {
+                width: 100%;
+            }
+
+            #sportbtn2{
+                width:100%;
+                border:2px solid #48cfad;
+                color:#48cfad;
+                border-radius: 15px;
+                background: linear-gradient(to right, #48cfad 50%, white 50%);
+                background-size: 200% 100%;
+                background-position: right bottom;
+                transition: all .5s ease-out;
+            }
+            #sportbtn{
+                width:100%;
+                text-align: center !important;
+                background-color: white;
+                border-radius: 3px;
+                border:2px solid #48cfad;
+                border-image: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4) 1 / 2px;
+                
+                -webkit-text-fill-color: #0082c3;
+            }
+            
+            #sportbtn:hover{
+                background-position: left bottom;
+                color:#fff;
+                transition: all .5s ease-out;
+            }
+
+            
+            #submit{
+                background-image: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+                margin:15px 0 15px 0;
+                width:100%;
+                margin-bottom: 15%;
+            }
+            #submit:hover{
+                color:white;
+            }
+            #arrow, .fa-1{
+                float:right !important;
+                cursor:pointer;
+            }
+            .input-icons{
+                position: relative;
+                margin:0 auto;
+                text-align:center;
+            }
+            .input-icons .fa-1 { 
+                position: absolute; 
+                cursor: pointer;
+                top: 17px;
+                left: 95%;
+                font-size: 15px;
+                color:#0082c3;
+            }
+            /* .fa-1{
+                padding: 10px;
+                min-width: 40px;
+            } */
+            /* .input-icons { 
+                width: 100%; 
+                margin-bottom: 10px; 
+            } */
+            /* .input-field { 
+                width: 100%; 
+                padding: 10px; 
+                text-align: center; 
+            } */
+            
+            .sportModel{
+                display: none;
+                position: fixed;
+                z-index: 99;
+                padding-top: 100px;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+            }
+            .sportSelectContent{
+                position: relative;
+                background-color: #fefefe;
+                margin: auto;
+                padding: 0;
+                border: 1px solid #888;
+                width: 80%;
+                height: 80%;
+                
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+                -webkit-animation-name: animatetop;
+                -webkit-animation-duration: 0.4s;
+                animation-name: animatetop;
+                animation-duration: 0.4s
+            }
+            .close {
+                color: #000;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            .close:hover, .close:focus {
+                color: #de5246;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            .sportModelHeader{
+                padding: 2px 16px;
+            }
+            .sportModelBody{
+                padding: 2px 16px;
+                width: 100%;
+                height: 75%;
+                overflow: auto;
+            }
+            .sportModelBody::-webkit-scrollbar-track
+            {
+                background-color: #FFF;
+            }
+
+            .sportModelBody::-webkit-scrollbar
+            {
+                width: 10px;
+                background-color: #FFF;
+            }
+
+            .sportModelBody::-webkit-scrollbar-thumb
+            {
+                background-color: #0082c3;
+                border: 0;
+            }
+            
+
+            @-webkit-keyframes animatetop {
+                from {top:-300px; opacity:0} 
+                to {top:0; opacity:1}
+            }
+
+            @keyframes animatetop {
+                from {top:-300px; opacity:0}
+                to {top:0; opacity:1}
+            }
+            
+            @-webkit-keyframes animatelegend {
+                from {
+                    background-position: right bottom;
+                    transition: all 2s ease-out;
+                }
+                to {
+                    background-position: left bottom;
+                }
+            }
+
+            @keyframes animatelegend {
+                from {
+                    background-position: right bottom;
+                    transition: all 2s ease-out;
+                }
+                to {
+                    background-position: left bottom;
+                }
+            }
+
+             @-webkit-keyframes animatelegend2 {
+                from {
+                    background-position: right bottom;
+                    transition: all 2s ease-out;
+                }
+                to {
+                    background-position: left bottom;
+                }
+            }
+
+            @keyframes animatelegend2 {
+                from {
+                    background-position: right bottom;
+                    transition: all 2s ease-out;
+                }
+                to {
+                    background-position: left bottom;
+                }
+            }
+
+
+
+            .sports-box{
+                
+                font-size:15px;
+                text-transform:uppercase;
+                padding:10px 0; 
+                width: 225px;
+                margin: 10px;
+                border-radius: 10px;
+                
+                float:left !important;
+                text-align: center !important;
+                background-color: white;
+                border-radius: 3px;
+                border:2px solid #48cfad;
+                border-image: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4) 1 / 2px;
+                
+                -webkit-text-fill-color: #0082c3;
+            }
+            .sports-box:hover{
+                overflow:hidden;
+                cursor: pointer;
+                box-shadow: 0px 13px 21px -5px rgba(0, 0, 0, 0.3);
+                -webkit-text-fill-color: white;
+                background-image: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+            }
+            .sportModelBody .container{
+                width: 90%;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .sportSelectContent .container .searchinput{
+                width: 60%;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            #search{
+                border-radius:50px;
+                width: 90%;
+                padding: 2px 16px;
+                background-color: white;
+                border-radius: 3px;
+                border:2px solid #48cfad;
+                border-image: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4) 1 / 2px;
+                
+                -webkit-text-fill-color: #0082c3;
+            }
+            #sport-select-err{
+                color:red;
+                display:none;
+            }
+            #form .container{
+                width:100%;
+                margin:0 auto;
+                padding: 0%;
+            }
+
+            .nav-wrapper{
+                background-image: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+            }
+            
+            #nav-mobile li a{
+                text-decoration: none;
+                text-decoration-style: none;
+                color:#fff;
+                width:100px;
+                height:100%;
+                text-align: center;
+            }
+            .no-shadows{
+                box-shadow: none !important;    
+            }
+            .logo{
+                top:-10px;
+            }
+            svg{
+                vertical-align: text-bottom;
+            }
+            .material-tooltip{
+                width:300px;
+            }
+        </style>
+        
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">
+                    <div class="logo">
+                        <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+                            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2146.0933 536.66669" height="64" width="300"
+                            xml:space="preserve" id="svg2" version="1.1">
+                            <metadata id="metadata8">
+                            </metadata>
+                            <defs id="defs6" />
+                            <g transform="matrix(1.3333333,0,0,-1.3333333,0,536.66667)" id="g10">
+                                <g transform="scale(0.109748)" id="g12">
+                                    <path id="path14" style="fill:transparent;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                        d="M 0,0 H 14666.1 V 3667.49 H 0 Z" />
+                                    <path id="path16" style="fill:transparent;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                        d="M 1642.91,2380.5 H 1451.98 V 1276.17 h 193.54 c 366.62,0 540.1,169.74 540.1,554.56 0,352.41 -189.06,549.77 -542.71,549.77" />
+                                    <path id="path18" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                        d="m 2650.09,2005.54 c -32.78,232.06 -124.95,422.76 -273.91,560.87 -204.64,192.32 -422.03,232.84 -733.27,232.84 H 971.875 V 849.148 h 737.315 c 275.96,0 459.83,37.239 669.52,240.542 149.15,144.74 239.25,328.35 271.38,545.31 V 859.262 h 1068.55 v 419.648 h -596.36 v 362.53 h 516.36 v 418.88 h -516.36 v 318.18 h 596.36 v 429.63 H 2650.09 Z M 1645.52,1276.17 H 1451.98 V 2380.5 h 190.93 c 353.7,0 542.71,-197.36 542.71,-549.89 0,-384.7 -173.42,-554.44 -540.1,-554.44" />
+                                    <path id="path20" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                        d="m 5169.07,1562.25 c -15.03,-26.24 -155.18,-241.72 -439.37,-260.99 -282.57,-12.93 -521.72,255.17 -517.31,544.33 9.1,286.71 221.92,515.5 506.21,519.89 240.66,-4.39 418.25,-190.94 415.38,-190.94 52.25,-45.46 86.26,-78.27 125.11,-136.75 l 257.28,453.49 c -46.57,48.1 -65.78,70.01 -123.72,113.06 -146.53,133.12 -360.79,238.08 -662.95,248.64 -290.21,6.75 -582.92,-115.52 -809.95,-408 -138.95,-186.01 -194.25,-353.01 -201.08,-599.39 2.23,-289.16 105.89,-523.27 257.86,-691.65 259.55,-274.131 573.68,-339.526 742.07,-339.526 240.66,10.641 416.73,68.746 583.93,180.668 52.86,36.498 110.79,85.528 169.38,148.048 h 449.45 V 859.262 h 460.63 V 2808.04 h -504.35 z m 752.29,-10.85 h -247.41 l 247.41,440.72 V 1551.4" />
+                                    <path id="path22" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                        d="m 6473.39,2346.86 h 363.43 V 849.074 h 480.52 V 2346.86 h 371.7 v 452.39 H 6473.39 v -452.39" />
+                                    <path id="path24" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                        d="m 8745.21,2058.05 h -491.32 v 741.2 H 7774.75 V 849.074 h 479.14 v 745.496 h 491.32 V 849.074 h 483.68 V 2799.25 h -483.68 v -741.2" />
+                                    <path id="path26" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                        d="m 13214.1,1715.38 -720.3,1083.87 h -433.3 v -658 c -48.8,149.35 -134.6,287.38 -254.9,407.19 -191.5,185.83 -439.8,287.56 -701,287.56 -279.3,0 -522.2,-96.54 -715.2,-285.63 -193.8,-189.18 -298.6,-436.22 -298.6,-705.65 0,-214.1 52.5,-402.49 155.1,-565.81 H 9878.65 V 2799.25 H 9401.29 V 849.074 h 1038.51 v 205.056 c 180.5,-159.435 404.8,-241.72 662,-241.72 272.5,0 532.7,107.125 723.1,304.99 109.5,113.1 188.9,246.74 235.6,395.99 V 849.074 h 479.6 V 1935.86 l 732.1,-1086.786 h 421.2 V 2799.25 h -479.3 z m -2112.3,-420.06 c -271.5,0 -515.7,236.77 -515.7,543.65 0,286.25 228.3,513.69 521.7,513.69 276,0 504.7,-227.44 504.7,-513.69 0,-317.97 -228.7,-543.65 -510.7,-543.65" />
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#">About us</a></li>
+                    <li class="no-shadows z-depth-0"><a href="#">
+                        <div class="card center-align" style="width:40px;height:40px;border-radius:20px;margin-left:20%">
+                            <img/>
+                        </div>
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="row"><br><br></div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <div class="container">
+                    <div class="card top shadow rounded">
+                        <legend id="topic" class="col-sm-10 offset-1"><span>Select Type of Recommendation</span></legend>
+                        <div class="center1">
+                            <form method="POST" action="{% url 'users:recommend' %}" autocomplete="off">
+                            {% csrf_token %}
+                                <div class="center combo1 input-field">
+                                {% comment %} COMBOBOX - SELECTION {% endcomment %}
+                                    <select class="form-control" id="combobox1" name="selected" style="display: none" autocomplete="off">
+                                        <option value="0" selected disabled>---- Select Type ----</option>
+                                        {% for event in options %}
+                                            <option value="{{event}}">{{event}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <p class="event-error" style="display:none">
+                                        Please select a valid option
+                                    </p>
+                                {% comment %} ## END ## COMBOBOX - SELECTION {% endcomment %}
+                                </div>
+                                <br>
+                            
+                                <div id="sports-advice-content" style="display:none">
+                                    <h1>This is Sports advice</h1>
+                                </div>
+
+                                <div id="form">
+
+                                </div>
+                                
+                                {% comment %} ARROW BUTTON --> {% endcomment %}
+                                    <button type="submit" id="submit" class="btn btn-light waves-effect waves-light next">Try Recommendations<i class="material-icons" id="arrow" >send</i></button>
+                                {% comment %} ## END ## ARROW BUTTON --> {% endcomment %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        {% comment %} SPORTS SELECTION POPUP MODEL {% endcomment %}
+        <div class="sportModel">
+            <div class="sportSelectContent">
+                
+                <div class="sportModelHeader">
+                    <span class="close">&times;</span>
+                </div>
+                <div class="container">
+                    <div class="searchinput">
+                        <input class="sportsSearch" type="text" id="search" placeholder="Search ..."/>
+                    </div>
+                </div>
+                <div class="sportModelBody">
+                    <div class="container center-align">
+                        {% for sport in sports %}
+                            <div class="sports-box" id='{{sport.uuid}}'><b>{{sport.sportsname}}</b></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %} ## END ## SPORTS SELECTION POPUP MODEL {% endcomment %}
+
+        
+        
+        
+        
+        {% comment %} MAP SCRIPT - TO GET LATITUDE AND LONGITUDE {% endcomment %}
+        <script>
+            var placeSearch, autocomplete, geocoder, latlng = null;
+            function initAutocomplete() {
+                geocoder = new google.maps.Geocoder();
+                autocomplete = new google.maps.places.Autocomplete(
+                    (document.getElementById('autocomplete')), {
+                        types: ['geocode']
+                    });
+                autocomplete.addListener('place_changed', fillInAddress);
+            }
+
+            function codeAddress(address) {
+                geocoder.geocode({
+                    'address': address
+                }, function (results, status) {
+                    if (status == 'OK') {
+                        latlng = JSON.parse(JSON.stringify(results[0].geometry.location));
+                        $('#geocode-lat').val(latlng.lat);
+                        $('#geocode-lng').val(latlng.lng);
+                        console.log(latlng.lat, latlng.lng);
+                    } else {
+                        // alert(status + ' : Please enter a valid location ');
+                    }
+                });
+            }
+
+            function fillInAddress() {
+                var place = autocomplete.getPlace();
+                codeAddress(document.getElementById('autocomplete').value);
+            }
+        </script>
+        {% comment %} ## END ## MAP SCRIPT - TO GET LATITUDE AND LONGITUDE {% endcomment %}
+
+        <script>
+
+            $(document).ready(function () {
+                M.AutoInit();
+                $(window).on('resize', function () {
+                    var win = $(this); //this = window
+                    $('body').height(win.height());
+                });
+                $('select').formSelect();
+                $('.tooltipped').tooltip();
+                $('#combobox1').val(0);
+                
+                //COMBO BOX - FUNCTIONS
+                $("#combobox1").change(function () {
+                    console.log($(window).height());
+
+                    var selected = $("#combobox1").val();
+                    if (selected != 0) {
+                        $.ajax({
+                            url: '/form/',
+                            data: {
+                                'selected': selected
+                            },
+                            success: function (data) {
+                                $('#form').empty();
+                                
+                                if (data.event[0].fields.sportbtn) {
+                                    $('#form').append(data.template[0].fields.sportbtn);
+                                }
+                                if (data.event[0].fields.location) {
+                                    $('#form').append(data.template[0].fields.location);
+                                }
+                                if (data.event[0].fields.userid) {
+                                    $('#form').append(data.template[0].fields.userid);
+                                }
+                                $('.tooltipped').tooltip();
+                            }
+                        });
+                    }
+
+
+                    if ($("#combobox1").val() == 0) {
+                        $(".event-error").show();
+                        $(".next").hide();
+                        $('#form').empty();
+                        $("#topic").text("Select Type of Recommendation");
+                    } else {
+                        $(".event-error").hide();
+                        $(".next").show();
+                        $("#topic").html('<span>' + $("#combobox1").val() + '</span>');
+                    }
+                });
+
+                // SUBMIT BUTTON - FUNCTIONS
+                $('#submit').click(function () {
+                    if ($('#autocomplete').val() && $('#userid').val() && $('#sportid').val())
+                        console.log($('#autocomplete').val(), $('#userid').val(), latlng);
+                });
+
+                // EMAIL - VALIDATION
+                $('#userid').validate();
+
+                // ASSIGN LAT - LNG
+                $(document).on('focusout', '#autocomplete', function () {
+                    console.log($('autocomplete').val());
+                    codeAddress($('#autocomplete').val());
+                });
+
+                // Testing button
+                $('#testing').click(function () {
+                    console.log($('#geocode').val(), $('#userid').val(), latlng);
+                });
+
+                //Model funtions
+                $(document).on('click', '#sportbtn', function () {
+                    $('.sportModel').show();
+                    $('#search').focus();
+                });
+                $('#search').focusout(function(){
+                    $('#search').focus();
+                });
+                $('.close').click(function () {
+                    $('.sportModel').hide();
+                });
+                $(window).click(function (event) {
+                    if (event.target.className == 'sportModel') {
+                        $('.sportModel').hide();
+                    }
+                });
+
+                //Search function
+                $('#search').keyup(function () {
+                    var value = $.trim($(this).val().toLowerCase());
+                    $('.sports-box').filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+
+                // Select sport from model
+                $('.sports-box').click(function (event) {
+                    $('#sportid').val(event.target.id);
+                    $('#sportbtn b').html($(this).text());
+                    $('.tooltipped').tooltip();
+                    $('#sport-select-err').hide();
+                    $('.sportModel').hide();
+
+                });
+                
+
+                // Form validation
+                $('form').submit(function () {
+                    if ($('#sportbtn').text() == "Select a Sport") {
+                        $('#sportid').val(null);
+                    }
+                    var errormsg=false;
+                    $.ajax({
+                        url: '/error/',
+                        async: false,
+                        data: {
+                            'userid': $('#userid').val(),
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data == 0) {
+                                alert('User not found');
+                                $('#userid').val('');
+                                $('#userid').error();
+                                $('#userid').focus();           
+                                errormsg = false;
+                            }else{
+                                errormsg = true;
+                            }
+                        }
+                    });
+                    return errormsg;
+                });
+            });
+
+                                    // var index=1
+                                    // function legendanimation(){
+                                    //     if(index==1){
+                                    //         var div = document.getElementById("topic");
+                                    //         div.className="col-sm-10 offset-1 legend1";
+                                    //         index=0;
+                                    //     }else{
+                                    //         var div = document.getElementById("topic");
+                                    //         div.className = "col-sm-10 offset-1 legend2";
+                                    //         index = 1;
+                                    //     }
+                                    // }
+                                    // setInterval(legendanimation,2000);
+
+        </script>
+
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUO1omLbgXEl7XwDeeuP_2JtvmSKg98Q0&libraries=places&callback=initAutocomplete"
+            async defer></script>
+    </body>
+</html>

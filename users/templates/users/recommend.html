@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recommendations</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+    <style>
+        * { margin: 0px; padding: 0px; }
+        
+        body{
+            height:820px;
+            background-image: linear-gradient(to bottom right, #3851B1, #00EB96);
+            background-attachment: fixed;
+            font-family: "Open Sans", sans-serif; 
+            overflow: hidden;
+        }
+        .totalCard{
+            position: relative;
+            width: 300px;
+            height: 350px;
+            margin:40px;    
+            transform-style: preserve-3d;
+            transition: transform 5s;
+            float: left;
+        }
+        .sports-card{
+            width: 300px;
+            height: 350px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            -webkit-transition:  100ms ease-out; 
+            -moz-transition:  100ms ease-out; 
+            -o-transition:  100ms ease-out; 
+            transition:  100ms ease-out;
+        }
+        .sports-card.animate{
+            top:5px;
+            left: 5px;
+            width: 300px;
+            height: 350px;
+            box-shadow:0px 13px 21px -5px rgba(0, 0, 0, 0.3);
+            -webkit-transition:  100ms ease-out; 
+            -moz-transition:  100ms ease-out; 
+            -o-transition:  100ms ease-out; 
+            transition:  100ms ease-out; 
+        }
+        .stats-container{
+                background:#fff;	
+                position:absolute;
+                top:250px;
+                left:0;
+                width:100%;
+                height:250px;
+                padding:27px 35px 35px;	
+                -webkit-transition: all 200ms ease-out; 
+                -moz-transition: all 200ms ease-out; 
+                -o-transition: all 200ms ease-out; 
+                transition: all 200ms ease-out;
+            }
+            .stats-container .entryPrice{
+                float:right;
+                background: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size:22px;
+                font-weight:600;
+            }
+            .sports-card.animate .stats-container{
+                top:120px;
+                -webkit-transition: all 200ms ease-out; 
+                -moz-transition: all 200ms ease-out; 
+                -o-transition: all 200ms ease-out; 
+                transition: all 200ms ease-out;
+            }
+            .stats-container .sportsName{
+                color:#393c45;
+                width:150px;
+                height:30px !important;
+                font-size:80%;
+            }
+            .stats-container p{
+                font-size:12px;
+                color:#b1b1b3;
+                margin-top:5px;	
+                padding:2px 0 10px 0;
+                width: 230px;
+            }
+            .image_overlay{
+                position:absolute;
+                top:0;
+                left:0; 
+                width:100%;
+                height:100%;
+                background:linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+                opacity:0;	
+            }
+            .sports-card.animate .image_overlay{
+                opacity:0.7;	
+                -webkit-transition: all 200ms ease-out; 
+                -moz-transition: all 200ms ease-out; 
+                -o-transition: all 200ms ease-out; 
+                transition: all 200ms ease-out;
+            }
+            .sportsinfo{
+                padding: 2px 0 0;
+                overflow:scroll;
+                height: 105px;
+            }
+            .sportsinfo strong{
+                font-weight:700;
+                color:#393c45;
+                font-size:12px;
+            }
+            
+            .sportsinfo span{
+                color:#969699;
+                font-size:12px;
+                display:block;
+                margin-bottom:8px;
+            }
+            .sportsDate strong, .sportsTime strong{
+                margin-right:22%;
+            }
+            .sportsDate span, .sportsTime span{
+                display:inline;
+            }
+            .dateend{
+                margin-left:17%;
+            }
+            .timeend{
+                margin-left:34%;
+            }
+            .sportsinfo::-webkit-scrollbar-track
+            {
+                background-color: #FFF;
+            }
+
+            .sportsinfo::-webkit-scrollbar
+            {
+                width: 5px;
+                background-color: #FFF;
+            }
+
+            .sportsinfo::-webkit-scrollbar-thumb
+            {
+                background-color: #0082c3;
+                border: 0;
+            }
+            .viewDetails{
+                position: absolute;
+                top:50px;
+                left:50%;
+                margin-left: -60px;
+                border:2px solid #fff;
+                color:#fff;
+                font-size:15px;
+                text-align:center;
+                text-transform:uppercase;
+                font-weight:700;
+                padding:10px 0; 
+                opacity:0;
+                width: 120px;
+            }
+            .viewDetails:hover{
+                cursor:pointer;
+                background-color: #FFF !important;
+            }
+            
+            .viewDetailsSpan{
+               background: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .sports-card.animate .viewDetails{
+                opacity: 1;
+                font-size: 15px;
+
+            }
+            div.shadow{
+                width:295px;height:370px;
+                opacity:0;
+                position:absolute;
+                top:0;
+                left:0;
+                z-index:3;
+                display:none;
+                background: -webkit-linear-gradient(left,rgba(0,0,0,0.1),rgba(0,0,0,0.2));
+                background: -o-linear-gradient(right,rgba(0,0,0,0.1),rgba(0,0,0,0.2)); 
+                background: -moz-linear-gradient(right,rgba(0,0,0,0.1),rgba(0,0,0,0.2)); 
+                background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.2)); 
+            }
+            .container{
+                width: 100%;
+                margin:auto;
+                padding: 0 60px;
+            }
+
+
+
+            @media only screen and (max-width: 600px) {
+                .totalCard {
+                    margin:5px;
+                }
+                .container{
+                    width: 100%;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+            }
+
+            nav{
+                position: fixed;
+                z-index: 999;
+                margin-bottom: 5%;
+                overflow: hidden;
+            }
+            .nav-wrapper{
+                background-image: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+                
+            }
+            
+            #nav-mobile li a{
+                text-decoration: none;
+                text-decoration-style: none;
+                color:#fff;
+                width:100px;
+                height:100%;
+                text-align: center;
+            }
+            .recommend-logo{
+                text-decoration: none !important;
+                text-decoration-style: none !important;
+                color:#fff;
+                width:40%;
+                height:100%;
+                text-align: center;
+            }
+            .no-shadows{
+                box-shadow: none !important;    
+            }
+            .logo{
+                top:-10px;
+            }
+            svg{
+                vertical-align: text-bottom;
+            }
+            main{
+                position: absolute;
+                top: 64px;
+                bottom: 0;
+                width: 100%;
+                overflow-y: scroll;
+            }
+            
+            
+    </style>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">
+                <div class="logo">
+                    <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2146.0933 536.66669" height="64" width="300"
+                        xml:space="preserve" id="svg2" version="1.1">
+                        <metadata id="metadata8">
+                        </metadata>
+                        <defs id="defs6" />
+                        <g transform="matrix(1.3333333,0,0,-1.3333333,0,536.66667)" id="g10">
+                            <g transform="scale(0.109748)" id="g12">
+                                <path id="path14" style="fill:transparent;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                    d="M 0,0 H 14666.1 V 3667.49 H 0 Z" />
+                                <path id="path16" style="fill:transparent;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                    d="M 1642.91,2380.5 H 1451.98 V 1276.17 h 193.54 c 366.62,0 540.1,169.74 540.1,554.56 0,352.41 -189.06,549.77 -542.71,549.77" />
+                                <path id="path18" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                    d="m 2650.09,2005.54 c -32.78,232.06 -124.95,422.76 -273.91,560.87 -204.64,192.32 -422.03,232.84 -733.27,232.84 H 971.875 V 849.148 h 737.315 c 275.96,0 459.83,37.239 669.52,240.542 149.15,144.74 239.25,328.35 271.38,545.31 V 859.262 h 1068.55 v 419.648 h -596.36 v 362.53 h 516.36 v 418.88 h -516.36 v 318.18 h 596.36 v 429.63 H 2650.09 Z M 1645.52,1276.17 H 1451.98 V 2380.5 h 190.93 c 353.7,0 542.71,-197.36 542.71,-549.89 0,-384.7 -173.42,-554.44 -540.1,-554.44" />
+                                <path id="path20" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                    d="m 5169.07,1562.25 c -15.03,-26.24 -155.18,-241.72 -439.37,-260.99 -282.57,-12.93 -521.72,255.17 -517.31,544.33 9.1,286.71 221.92,515.5 506.21,519.89 240.66,-4.39 418.25,-190.94 415.38,-190.94 52.25,-45.46 86.26,-78.27 125.11,-136.75 l 257.28,453.49 c -46.57,48.1 -65.78,70.01 -123.72,113.06 -146.53,133.12 -360.79,238.08 -662.95,248.64 -290.21,6.75 -582.92,-115.52 -809.95,-408 -138.95,-186.01 -194.25,-353.01 -201.08,-599.39 2.23,-289.16 105.89,-523.27 257.86,-691.65 259.55,-274.131 573.68,-339.526 742.07,-339.526 240.66,10.641 416.73,68.746 583.93,180.668 52.86,36.498 110.79,85.528 169.38,148.048 h 449.45 V 859.262 h 460.63 V 2808.04 h -504.35 z m 752.29,-10.85 h -247.41 l 247.41,440.72 V 1551.4" />
+                                <path id="path22" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                    d="m 6473.39,2346.86 h 363.43 V 849.074 h 480.52 V 2346.86 h 371.7 v 452.39 H 6473.39 v -452.39" />
+                                <path id="path24" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                    d="m 8745.21,2058.05 h -491.32 v 741.2 H 7774.75 V 849.074 h 479.14 v 745.496 h 491.32 V 849.074 h 483.68 V 2799.25 h -483.68 v -741.2" />
+                                <path id="path26" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                                    d="m 13214.1,1715.38 -720.3,1083.87 h -433.3 v -658 c -48.8,149.35 -134.6,287.38 -254.9,407.19 -191.5,185.83 -439.8,287.56 -701,287.56 -279.3,0 -522.2,-96.54 -715.2,-285.63 -193.8,-189.18 -298.6,-436.22 -298.6,-705.65 0,-214.1 52.5,-402.49 155.1,-565.81 H 9878.65 V 2799.25 H 9401.29 V 849.074 h 1038.51 v 205.056 c 180.5,-159.435 404.8,-241.72 662,-241.72 272.5,0 532.7,107.125 723.1,304.99 109.5,113.1 188.9,246.74 235.6,395.99 V 849.074 h 479.6 V 1935.86 l 732.1,-1086.786 h 421.2 V 2799.25 h -479.3 z m -2112.3,-420.06 c -271.5,0 -515.7,236.77 -515.7,543.65 0,286.25 228.3,513.69 521.7,513.69 276,0 504.7,-227.44 504.7,-513.69 0,-317.97 -228.7,-543.65 -510.7,-543.65" />
+                            </g>
+                        </g>
+                    </svg>
+            </a>
+            </a>
+            <a href="#" class="brand-logo center recommend-logo">RECOMMENDATIONS FOR YOU</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">About us</a></li>
+                <li class="no-shadows z-depth-0"><a href="#">
+                        <div class="card center-align" style="width:40px;height:40px;border-radius:20px;margin-left:20%">
+                            <img />
+                        </div>
+                    </a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="container pagecontain">
+            {% if req_err %}
+            {{req_err}}
+            {% else %}
+            {%for sports,name,location in response %}
+            <div class="totalCard">
+                <div class="sports-card">
+                    <div class="shadow"></div>
+                    <img src="https://images.pexels.com/photos/71104/utah-mountain-biking-bike-biking-71104.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+                        alt="Sports image" />
+                    <div class="image_overlay"></div>
+                    <div class="viewDetails"><span>View Details</span></div>
+                    <div class="stats">
+                        <div class="stats-container">
+                            <span class="entryPrice">
+                                {% if sports.minPrice == 0 %}
+                                FREE
+                                {% else %}
+                                Rs.{{sports.minPrice}}
+                                {% endif %}
+                            </span>
+                            <span class="sportsName"><b>{{name.sportsname | upper}}</b></span>
+                            <p>
+                                {% load split %}
+                                {% with sports.name|split:"|" as name %}
+                                {% for n in name %}
+                                {{n}}
+                                {% endfor %}
+                                {% endwith  %}
+                            </p>
+                            <hr>
+                            <div class="sportsinfo">
+                                <strong>Location</strong>
+                                <span id="location">{{location}}</span>
+                                <div class="sportsDate">
+                                    <strong>Start Date</strong>
+                                    <strong>End Date</strong>
+                                    <span>{{sports.startDate}}</span>
+                                    <span class="dateend">{{sports.endDate}}</span>
+                                </div>
+                                <div class="sportsTime">
+                                    <strong>Start Time</strong>
+                                    <strong>End Time</strong>
+                                    <span>{{sports.starttime}}</span>
+                                    <span class="timeend">{{sports.endtime}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // show stats on hover
+            M.AutoInit();
+            $('.sports-card').hover(function () {
+                $(this).addClass('animate');
+            }, function () {
+                $(this).removeClass('animate');
+            });
+
+            $('.viewDetails').mouseover(function(){
+                $('.viewDetails span').addClass('viewDetailsSpan');
+            });
+            $('.viewDetails').mouseout(function(){
+                $('.viewDetails span').removeClass('viewDetailsSpan');
+            });
+        });
+
+    </script>
+    </body>
+</html>
