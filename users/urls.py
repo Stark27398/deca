@@ -6,5 +6,6 @@ urlpatterns=[
     path('', views.index, name='index'),
     path('error/', views.error, name='error'),
     path('users/',views.recommendationPage,name='recommend'),
-    path('form/',views.form,name='form')
+    path('form/',views.form,name='form'),
+    path('upload/',views.upload,name='upload'),
 ]

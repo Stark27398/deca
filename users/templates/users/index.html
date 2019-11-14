@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>To be changed</title>
+        <title>Recommendation Engine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -31,7 +31,7 @@
 
         
     </head>
-    <body >
+    <body>
         <style>
             body{
                 height:820px;
@@ -55,7 +55,7 @@
                 background: linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                font: italic 700 1.3rem Rubik,sans-serif;
+                font: 700 1.3rem Rubik,sans-serif;
             }
             legend{
                 text-align:center;
@@ -110,7 +110,8 @@
                 display: none;
             }
             #autocomplete {
-                width: 100%;
+                width: 94%;
+                padding-right: 6%;
             }
 
             #sportbtn2{
@@ -380,6 +381,7 @@
             .material-tooltip{
                 width:300px;
             }
+            
         </style>
         
         <nav>
@@ -430,7 +432,7 @@
             <div class="col-sm-6">
                 <div class="container">
                     <div class="card top shadow rounded">
-                        <legend id="topic" class="col-sm-10 offset-1"><span>Select Type of Recommendation</span></legend>
+                        <legend id="topic" class="col-sm-10 offset-1"><span>User Recommendation</span></legend>
                         <div class="center1">
                             <form method="POST" action="{% url 'users:recommend' %}" autocomplete="off">
                             {% csrf_token %}
@@ -495,39 +497,7 @@
         
         
         
-        {% comment %} MAP SCRIPT - TO GET LATITUDE AND LONGITUDE {% endcomment %}
-        <script>
-            var placeSearch, autocomplete, geocoder, latlng = null;
-            function initAutocomplete() {
-                geocoder = new google.maps.Geocoder();
-                autocomplete = new google.maps.places.Autocomplete(
-                    (document.getElementById('autocomplete')), {
-                        types: ['geocode']
-                    });
-                autocomplete.addListener('place_changed', fillInAddress);
-            }
-
-            function codeAddress(address) {
-                geocoder.geocode({
-                    'address': address
-                }, function (results, status) {
-                    if (status == 'OK') {
-                        latlng = JSON.parse(JSON.stringify(results[0].geometry.location));
-                        $('#geocode-lat').val(latlng.lat);
-                        $('#geocode-lng').val(latlng.lng);
-                        console.log(latlng.lat, latlng.lng);
-                    } else {
-                        // alert(status + ' : Please enter a valid location ');
-                    }
-                });
-            }
-
-            function fillInAddress() {
-                var place = autocomplete.getPlace();
-                codeAddress(document.getElementById('autocomplete').value);
-            }
-        </script>
-        {% comment %} ## END ## MAP SCRIPT - TO GET LATITUDE AND LONGITUDE {% endcomment %}
+        
 
         <script>
 
@@ -560,8 +530,10 @@
                                 }
                                 if (data.event[0].fields.location) {
                                     $('#form').append(data.template[0].fields.location);
+                                    initAutocomplete();
                                 }
                                 if (data.event[0].fields.userid) {
+                                    console.log('Email');
                                     $('#form').append(data.template[0].fields.userid);
                                 }
                                 $('.tooltipped').tooltip();
@@ -574,7 +546,7 @@
                         $(".event-error").show();
                         $(".next").hide();
                         $('#form').empty();
-                        $("#topic").text("Select Type of Recommendation");
+                        $("#topic").text("User Recommendation");
                     } else {
                         $(".event-error").hide();
                         $(".next").show();
@@ -682,9 +654,58 @@
                                     // setInterval(legendanimation,2000);
 
         </script>
+        {% comment %} MAP SCRIPT - TO GET LATITUDE AND LONGITUDE {% endcomment %}
+        <script>
+            var placeSearch, autocomplete, geocoder, latlng = null;
 
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUO1omLbgXEl7XwDeeuP_2JtvmSKg98Q0&libraries=places&callback=initAutocomplete"
-            async defer></script>
+            function initAutocomplete() {
+                if(document.getElementById("autocomplete")){
+                    geocoder = new google.maps.Geocoder();
+                    autocomplete = new google.maps.places.SearchBox(
+                    (document.getElementById("autocomplete")), {
+                    types: ['geocode']
+                    });
+                    autocomplete.addListener('place_changed', fillInAddress);
+                }
+            }
+
+            function codeAddress(address) {
+                geocoder.geocode({
+                    'address': address
+                }, function (results, status) {
+                    if (status == 'OK') {
+                        latlng = JSON.parse(JSON.stringify(results[0].geometry.location));
+                        $('#geocode-lat').val(latlng.lat);
+                        $('#geocode-lng').val(latlng.lng);
+                        console.log(latlng.lat, latlng.lng);
+                    } else {
+                        // alert(status + ' : Please enter a valid location ');
+                    }
+                });
+            }
+
+            function fillInAddress() {
+                var place = autocomplete.getPlace();
+
+                for (var component in componentForm) {
+                    document.getElementById(component).value = '';
+                    document.getElementById(component).disabled = false;
+                }
+
+                // Get each component of the address from the place details,
+                // and then fill-in the corresponding field on the form.
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var addressType = place.address_components[i].types[0];
+                    if (componentForm[addressType]) {
+                        var val = place.address_components[i][componentForm[addressType]];
+                        document.getElementById(addressType).value = val;
+                    }
+                }
+                codeAddress(document.getElementById("autocomplete").value);
+            }
+        </script>
+        {% comment %} ## END ## MAP SCRIPT - TO GET LATITUDE AND LONGITUDE {% endcomment %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA38JrOcxhg7v-JMeCY8T57UOhC7nmIauY&libraries=places&callback=initAutocomplete" async
+            defer></script>
     </body>
 </html>

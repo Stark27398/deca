@@ -15,6 +15,8 @@
         
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     </head>
     <body>
     <style>
@@ -121,6 +123,7 @@
                 padding: 2px 0 0;
                 overflow:scroll;
                 height: 105px;
+                padding-bottom: 10%;
             }
             .sportsinfo strong{
                 font-weight:700;
@@ -223,8 +226,17 @@
                     padding: 20px;
                 }
             }
-
+            @media only screen and (max-width: 992px)
+            {
+                nav .brand-logo {
+                    left: 0;
+                    -webkit-transform: translateX(-5%);
+                    transform: translateX(-5%);
+                }
+            }
+            
             nav{
+                top:0;
                 position: fixed;
                 z-index: 999;
                 margin-bottom: 5%;
@@ -267,8 +279,31 @@
                 width: 100%;
                 overflow-y: scroll;
             }
-            
-            
+            .area1{
+                position:absolute;
+                top:64px;
+                width:100%;
+                bottom:0;
+                overflow: hidden;
+            }
+            .card,.card .filters{
+                width:170px;
+                height:200px;
+                margin-left:1%;
+                margin-top: 20%;
+                z-index: 99;
+                padding: 1%;
+            }
+            .card .filters{
+                cursor:pointer;
+            }
+            .badge{
+                position: absolute;
+                float:right;
+                right:0;
+                top:0;
+                background:linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
+            }
     </style>
     <nav>
         <div class="nav-wrapper">
@@ -309,17 +344,34 @@
                         <div class="card center-align" style="width:40px;height:40px;border-radius:20px;margin-left:20%">
                             <img />
                         </div>
+                        
                     </a></li>
             </ul>
         </div>
     </nav>
+    <div class="area1">
+        <div class="card">
+            <div class="filters">
+                <form action="#">
+                    {% for cont in content %}
+                    <p>
+                        <label>
+                            <input type="checkbox" checked="checked" value="{{cont.typeId}}" class="filter" />
+                            <span>{{cont.classtype}}</span>
+                        </label>
+                    </p>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </div>
     <main>
         <div class="container pagecontain">
             {% if req_err %}
             {{req_err}}
             {% else %}
-            {%for sports,name,location in response %}
-            <div class="totalCard">
+            {%for sports,name,location,type,className in response %}
+            <div class="totalCard {{type}}">
                 <div class="sports-card">
                     <div class="shadow"></div>
                     <img src="https://images.pexels.com/photos/71104/utah-mountain-biking-bike-biking-71104.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
@@ -328,8 +380,9 @@
                     <div class="viewDetails"><span>View Details</span></div>
                     <div class="stats">
                         <div class="stats-container">
+                             <span class="new badge" data-badge-caption="">{{className}}</span>
                             <span class="entryPrice">
-                                {% if sports.minPrice == 0 %}
+                                {% if sports.minPrice == 0 or sports.minPrice == '' %}
                                 FREE
                                 {% else %}
                                 Rs.{{sports.minPrice}}
@@ -346,20 +399,24 @@
                             </p>
                             <hr>
                             <div class="sportsinfo">
-                                <strong>Location</strong>
+                                <strong>Store Name</strong>
                                 <span id="location">{{location}}</span>
+                                {% if sports.startDate %}
                                 <div class="sportsDate">
                                     <strong>Start Date</strong>
                                     <strong>End Date</strong>
                                     <span>{{sports.startDate}}</span>
                                     <span class="dateend">{{sports.endDate}}</span>
                                 </div>
+                                {% endif %}
+                                {% if sports.starttime %}
                                 <div class="sportsTime">
                                     <strong>Start Time</strong>
                                     <strong>End Time</strong>
                                     <span>{{sports.starttime}}</span>
                                     <span class="timeend">{{sports.endtime}}</span>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -375,6 +432,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
@@ -393,6 +451,17 @@
             $('.viewDetails').mouseout(function(){
                 $('.viewDetails span').removeClass('viewDetailsSpan');
             });
+            $('.filter').on('change',function(){
+                if($(this).is(':checked')){
+                    $('.'+$(this).val()).show();
+                }else{
+                    $('.'+$(this).val()).hide();
+                }
+            });
+            $('.card').draggable({
+                containment : "area1"
+            });
+            
         });
 
     </script>
