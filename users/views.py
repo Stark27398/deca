@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from django.core import serializers
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from tablib import Dataset
 import csv
 import importlib
 import sys
