@@ -1,21 +1,29 @@
 from django.contrib import admin
-from import_export.admin import ImportExportModelAdmin
-from users.resources import *
-from users.models import *
+# from users.models import *
+from django.apps import apps
+
+
+models = apps.get_models()
+
+for model in models:
+    try:
+        admin.site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass
 # Register your models here.
 
-admin.site.register(User)
-admin.site.register(SportsMaster)
-admin.site.register(EventMaster)
-admin.site.register(EventSport)
-admin.site.register(Templates)
-admin.site.register(Selection)
-admin.site.register(ClassMaster)
-admin.site.register(ClassSport)
-admin.site.register(FacilityMaster)
-admin.site.register(FacilitySport)
-admin.site.register(contentId)
-admin.site.register(StoreDetails)
+# admin.site.register(User)
+# admin.site.register(SportsMaster)
+# admin.site.register(EventMaster)
+# admin.site.register(EventSport)
+# admin.site.register(Templates)
+# admin.site.register(Selection)
+# admin.site.register(ClassMaster)
+# admin.site.register(ClassSport)
+# admin.site.register(FacilityMaster)
+# admin.site.register(FacilitySport)
+# admin.site.register(contentId)
+# admin.site.register(StoreDetails)
 
 
 # @admin.register(User)

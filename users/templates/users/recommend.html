@@ -309,6 +309,7 @@
                 top:0;
                 background:linear-gradient(93deg,#4b3faa,#0082c3 51%,#49b7b4);
             }
+            
     </style>
     <nav>
         <div class="nav-wrapper">
@@ -379,24 +380,31 @@
             <div class="totalCard {{type}}">
                 <div class="sports-card">
                     <div class="shadow"></div>
-                    <img src="https://images.pexels.com/photos/71104/utah-mountain-biking-bike-biking-71104.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                        alt="Sports image" />
+                    <img src="{{sports.image_url}}" style="border: none; width: 100%; height:100%;" alt="Sports image" />
                     <div class="image_overlay"></div>
                     <div class="viewDetails"><span>View Details</span></div>
                     <div class="stats">
                         <div class="stats-container">
                              <span class="new badge" data-badge-caption="">{{className}}</span>
                             <span class="entryPrice">
-                                {% if sports.minPrice == 0 or sports.minPrice == '' %}
-                                FREE
-                                {% else %}
-                                Rs.{{sports.minPrice}}
+                                {% if sports.min_price %}
+                                    {% if sports.min_price == 0 or sports.min_price == '' %}
+                                        FREE
+                                    {% else %}
+                                        Rs.{{sports.min_price}}
+                                    {% endif %}
+                                {% elif sports.price %}
+                                    {% if sports.price == 0 or sports.price == '' %}
+                                        FREE
+                                    {% else %}
+                                        Rs.{{sports.price}}
+                                    {% endif %}
                                 {% endif %}
                             </span>
-                            <span class="sportsName"><b>{{name.sportsname | upper}}</b></span>
+                            <span class="sportsName"><b>{{name.sport_name | upper}}</b></span>
                             <p>
                                 {% load split %}
-                                {% with sports.name|split:"|" as name %}
+                                {% with sports.title|split:"|" as name %}
                                 {% for n in name %}
                                 {{n}}
                                 {% endfor %}
@@ -406,20 +414,20 @@
                             <div class="sportsinfo">
                                 <strong>Store Name</strong>
                                 <span id="location">{{location}}</span>
-                                {% if sports.startDate %}
+                                {% if sports.start_date %}
                                 <div class="sportsDate">
                                     <strong>Start Date</strong>
                                     <strong>End Date</strong>
-                                    <span>{{sports.startDate}}</span>
-                                    <span class="dateend">{{sports.endDate}}</span>
+                                    <span>{{sports.start_date}}</span>
+                                    <span class="dateend">{{sports.end_date}}</span>
                                 </div>
                                 {% endif %}
-                                {% if sports.starttime %}
+                                {% if sports.start_time %}
                                 <div class="sportsTime">
                                     <strong>Start Time</strong>
                                     <strong>End Time</strong>
-                                    <span>{{sports.starttime}}</span>
-                                    <span class="timeend">{{sports.endtime}}</span>
+                                    <span>{{sports.start_time}}</span>
+                                    <span class="timeend">{{sports.end_time}}</span>
                                 </div>
                                 {% endif %}
                             </div>

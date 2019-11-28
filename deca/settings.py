@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'csvImporter',
-    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -81,9 +79,20 @@ WSGI_APPLICATION = 'deca.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            'options': '-c search_path=django,masterdata,userdata,public'
+        },
+        'NAME': 'dplatform_prod',
+        'USER': 'deca_api_dev@deca-api-pg-dev',
+        'PASSWORD': 'Sot@13522',
+        'HOST': 'deca-api-pg-dev.postgres.database.azure.com',
+        'PORT': 5432
     }
 }
 
@@ -133,3 +142,5 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MEDIA_ROOT = '/media/'
 MEDIA_URL = '/media/'
+
+CSRF_COOKIE_SECURE = False

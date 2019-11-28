@@ -8,4 +8,5 @@ urlpatterns=[
     path('users/',views.recommendationPage,name='recommend'),
     path('form/',views.form,name='form'),
     path('upload/',views.upload,name='upload'),
+    path('createuser/',views.createUser,name='createUser'),
 ]

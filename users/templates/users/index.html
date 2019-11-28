@@ -92,7 +92,6 @@
             .next{
                 margin: 5%;
                 vertical-align: bottom;
-                display: none;
             }
             .container{
                 width:100%;
@@ -192,7 +191,7 @@
             .sportModel{
                 display: none;
                 position: fixed;
-                z-index: 99;
+                z-index: 100000;
                 padding-top: 100px;
                 width: 100%;
                 height: 100%;
@@ -234,7 +233,7 @@
             .sportModelBody{
                 padding: 2px 16px;
                 width: 100%;
-                height: 75%;
+                height: 70%;
                 overflow: auto;
             }
             .sportModelBody::-webkit-scrollbar-track
@@ -325,7 +324,7 @@
                 
                 -webkit-text-fill-color: #0082c3;
             }
-            .sports-box:hover{
+            .selected_sport, .sports-box:hover{
                 overflow:hidden;
                 cursor: pointer;
                 box-shadow: 0px 13px 21px -5px rgba(0, 0, 0, 0.3);
@@ -388,7 +387,77 @@
             .material-tooltip{
                 width:300px;
             }
-            
+            .check p{
+                margin:5px 20px;
+            }
+            .character-counter{
+                display: none;
+            }
+            #usermodal{
+                max-height: 250px;
+            }
+            #createUser{
+                min-height: 100%;
+                min-width: 100%;
+                overflow: hidden;
+                top:8%;
+                z-index: 100;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+            #save_sport{
+                float:right;
+                margin:10px 45px;
+            }
+            .loader_container{
+                width: 200px;
+                height: 160px;
+                background-color: rosybrown;
+                transform: translate(650px,300px);
+            }
+            .loading_text{
+                transform: translate(55px,40px);
+            }
+            .lds-hourglass {
+                display: inline-block;
+                position: relative;
+                width: 80px;
+                height: 80px;
+                transform: translate(60px,40px);
+            }
+            .lds-hourglass:after {
+                content: " ";
+                display: block;
+                border-radius: 50%;
+                width: 0;
+                height: 0;
+                margin: 8px;
+                box-sizing: border-box;
+                border: 32px solid #dfc;
+                border-color: #dfc transparent #dfc transparent;
+                animation: lds-hourglass 1.2s infinite;
+            }
+            @keyframes lds-hourglass {
+                0% {
+                    transform: rotate(0);
+                    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+                }
+                50% {
+                    transform: rotate(900deg);
+                    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                }
+                100% {
+                    transform: rotate(1800deg);
+                }
+            }
+            .loader{
+                display:none;
+                position: absolute;
+                height:100%;
+                width:100%;
+                top:0;
+                z-index: 1000000;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
         </style>
         
         <nav>
@@ -424,6 +493,7 @@
                     </a>
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!-- <li><a href="#" id="newuser">New User</a></li> -->
                     <li><a href="#">About us</a></li>
                     <li class="no-shadows z-depth-0"><a href="#">
                         <div class="card center-align" style="width:40px;height:40px;border-radius:20px;margin-left:20%">
@@ -441,9 +511,9 @@
                     <div class="card top shadow rounded">
                         <legend id="topic" class="col-sm-10 offset-1"><span>User Recommendation</span></legend>
                         <div class="center1">
-                            <form method="POST" action="{% url 'users:recommend' %}" autocomplete="off">
+                            <form method="POST" id="form1" action="/users/" autocomplete="off">
                             {% csrf_token %}
-                                <div class="center combo1 input-field">
+                                <!-- <div class="center combo1 input-field">
                                 {% comment %} COMBOBOX - SELECTION {% endcomment %}
                                     <select class="form-control" id="combobox1" name="selected" style="display: none" autocomplete="off">
                                         <option value="0" selected disabled>---- Select Type ----</option>
@@ -455,16 +525,74 @@
                                         Please select a valid option
                                     </p>
                                 {% comment %} ## END ## COMBOBOX - SELECTION {% endcomment %}
-                                </div>
-                                <br>
+                                </div> -->
+                                <div>
                             
                                 <div id="sports-advice-content" style="display:none">
                                     <h1>This is Sports advice</h1>
                                 </div>
 
                                 <div id="form">
-
+                                    <div class="row check">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="checkevent" name="event" value="1"
+                                                    class="filled-in checks" checked="checked" />
+                                                <span>Events</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="checkclass" name="class" value="8"
+                                                    class="filled-in checks" checked="checked" />
+                                                <span>ClassPacks</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="checkfacility" name="facility" value="2"
+                                                    class="filled-in checks" checked="checked" />
+                                                <span>Facilities</span>
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-field col s12">
+                                            <select id="gender" name="gender">
+                                                <option value="cb2fd832-d606-11e9-86b1-6f3c802f8697" selected>Male
+                                                </option>
+                                                <option value="cb2fd08a-d606-11e9-86b0-33a07629f3b9">Female</option>
+                                            </select>
+                                            <label>Gender</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="selectSport" class="container locate">
+                                            <button type="button" id="sportbtn"
+                                                class="btn btn-light waves-effect waves-light"><b>Select a Sport</b><i
+                                                    class="fa fa-info-circle fa-1 tooltipped" aria-hidden="true"
+                                                    data-html="True" data-position="right"
+                                                    data-tooltip="Select a sport to show recommendations based on your selection <br/> <b>OPTIONAL</b>"
+                                                    id="sportbtninfo"></i></button>
+                                        </div>
+                                        <input id="sportid" name="sportid" type="hidden" required />
+                                        <br>
+                                    </div>
+                                    <div id="event-content">
+                                        <div class="container locate" id="locationField">
+                                            <div class="input-icons">
+                                                <input id="autocomplete" placeholder="Enter a location" type="text"
+                                                    class="validate input-field" REQUIRED>
+                                                <i class="fa fa-info-circle fa-1 tooltipped" data-html="True"
+                                                    data-position="right"
+                                                    data-tooltip="Enter a location to show recommendations based on your location preference  <br/> <b>REQUIRED</b>"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input id="geocode-lat" name="geocode-lat" type="hidden" />
+                                    <input id="geocode-lng" name="geocode-lng" type="hidden" />
                                 </div>
+                                
                                 
                                 {% comment %} ARROW BUTTON --> {% endcomment %}
                                     <button type="submit" id="submit" class="btn btn-light waves-effect waves-light next">Try Recommendations<i class="material-icons" id="arrow" >send</i></button>
@@ -492,24 +620,108 @@
                 <div class="sportModelBody">
                     <div class="container center-align">
                         {% for sport in sports %}
-                            <div class="sports-box" id='{{sport.uuid}}'><b>{{sport.sportsname}}</b></div>
+                            <div class="sports-box" id='{{sport.sport_id}}'><b>{{sport.sport_name}}</b></div>
                         {% endfor %}
                     </div>
+                </div>
+                <div class="sportModelFooter">
+                    <button class="btn btn-primary saveSports" id="save_sport">Save</button>
                 </div>
             </div>
         </div>
         {% comment %} ## END ## SPORTS SELECTION POPUP MODEL {% endcomment %}
 
+        {% comment %} USER ID POPUP MODEL {% endcomment %}
+        <div id="usermodal" class="modal">
+            <div class="modal-content">
+                <h4>Enter Email Address</h4>
+                <hr>
+                <div id="getuserid" class="container locate">
+                    <div class="input-icons">
+                        <input name="userid" id="userid" placeholder="Email ID" type="Email" class="validate input-field" REQUIRED>
+                        <i class="fa fa-info-circle fa-1 tooltipped" data-html="True" aria-hidden="true" data-position="right"
+                            data-tooltip="Enter your email ID linked to your decathlon account to show recommendations  based on your history <br/> <b>REQUIRED</b>"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="waves-effect waves-green btn-flat" id="idnext">Next</a>
+            </div>
+        </div>
+        {% comment %} ## END ## USER ID POPUP MODEL {% endcomment %}
         
         
+        <div class="modal fade" id="createUser">
+            <div class="modal-dialog">
+                <div class="modal-content">
         
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h6 class="modal-title">Create New User</h6>
+                        <button type="button" class="modal-close close" data-dismiss="modal">&times;</button>
+                    </div>
         
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form method="POST" id="db_select" action="/saveConn/" class="center-align" style="margin-top:5%"
+                            autocomplete="off">
+                            {% csrf_token %} 
         
-
+                            <div class="form-group">
+                                <div class="input-field col s12">
+                                    <select id="gender" name="gender">
+                                        <option value="cb2fd832-d606-11e9-86b1-6f3c802f8697" selected>Male</option>
+                                        <option value="cb2fd08a-d606-11e9-86b0-33a07629f3b9">Female</option>
+                                    </select>
+                                    <label>Gender</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="selectSport" class="container locate">
+                                    <button type="button" id="sportbtn" class="btn btn-light waves-effect waves-light"><b>Select a Sport</b><i
+                                            class="fa fa-info-circle fa-1 tooltipped" aria-hidden="true" data-html="True" data-position="right"
+                                            data-tooltip="Select a sport to show recommendations based on your selection <br/> <b>OPTIONAL</b>"
+                                            id="sportbtninfo"></i></button>
+                                </div>
+                                <input id="sportid" name="sportid" type="hidden" required />
+                                <br>
+                            </div>
+        
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <form id="create_user" method="POST" action="/createuser/">
+                            <button class="btn btn-success" name="createUser" type="submit" name="action"
+                                id="createUser">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        
+        <div class="loader">
+            <div class="loader_container">
+                <div class="lds-hourglass"></div>
+                <div class="loading_text"><p style="color: white;"><b>Creating User...</b></p></div>
+            </div>
+        </div>
         <script>
-
+            var sports_id = [];
+            var uuid = '';
             $(document).ready(function () {
-                M.AutoInit();
+                // M.AutoInit();
+                
+                $('#createUser').modal();
+                // $('#usermodal').modal();
+                // $('#usermodal').openModal({
+                //     dismissible: false,
+                //     startingTop:'10%'
+                // });
+                $('#newuser').on('click',function(){
+                    $('#createUser').openModal();
+                });
                 $(window).on('resize', function () {
                     var win = $(this); //this = window
                     $('body').height(win.height());
@@ -518,6 +730,80 @@
                 $('.tooltipped').tooltip();
                 $('#combobox1').val(0);
                 
+                // ON CLICKING NEXT AFTER USER MAIL INPUT
+                $('#idnext').on('click',function(){
+                    var errormsg = false;
+
+                    $.ajax({
+                        url: '/error/',
+                        async: false,
+                        data: {
+                            'userid': $('#userid').val(),
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data == 0) {
+                                alert('User not found');
+                                $('#userid').val('');
+                                $('#userid').error();
+                                $('#userid').focus();
+                                errormsg = false;
+                            } else {
+                                errormsg = true;
+                                $('#usermodal').hide();
+                            }
+                        }
+                    });
+                });
+                $('#save_sport').on('click',function(){
+                    sports_id = [];
+                    $('.selected_sport').each(function(){
+                        sports_id.push($(this).attr('id'));
+                    })
+                    if(sports_id.length){
+                        $('.sportModel').hide();
+                    }
+                    console.log(sports_id);
+                });
+                $('#form1').on('submit',function(){
+                    $('.loader').show();
+                    $('.loader .loading_text b').text('Creating User...');
+                    let ret = false;
+                    if(sports_id.length){
+                        let gender = $('#gender').val();
+                        let sports = [];
+                        for(id in sports_id){
+                            s_id = {"sport_id":sports_id[id]}
+                            sports.push(s_id);
+                        }
+                        console.log(gender,sports);
+                        $.ajax({
+                            url: '/createuser/',
+                            data: {
+                                'gender_id': gender,
+                                'sports_id':JSON.stringify(sports),
+                            },
+                            async:false,
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (data) {
+                                if(data.success){
+                                    uuid = data.uuid;
+                                    console.log(uuid);
+                                    let uid = '<input type="hidden" value="'+uuid+'" name="user_id" />';
+                                    $('#form').append($(uid));
+                                    ret = true;
+                                    $('.loader .loading_text b').text('Loading...');
+                                    $('.loader .loading_text').css('transform','translate(70px,40px)');
+                                    // $('#createUser').hide();
+                                }
+                            }
+                        });
+                    }else{
+                        alert('Please select a sport');
+                    }
+                    return ret;
+                });
                 //COMBO BOX - FUNCTIONS
                 $("#combobox1").change(function () {
                     console.log($(window).height());
@@ -531,23 +817,17 @@
                             },
                             success: function (data) {
                                 $('#form').empty();
-                                
-                                if (data.event[0].fields.sportbtn) {
-                                    $('#form').append(data.template[0].fields.sportbtn);
+                                if (data.event[0].fields.check) {
+                                    $('#form').append(data.template[0].fields.check);
                                 }
                                 if (data.event[0].fields.location) {
                                     $('#form').append(data.template[0].fields.location);
                                     initAutocomplete();
                                 }
-                                if (data.event[0].fields.userid) {
-                                    console.log('Email');
-                                    $('#form').append(data.template[0].fields.userid);
-                                }
                                 $('.tooltipped').tooltip();
                             }
                         });
                     }
-
 
                     if ($("#combobox1").val() == 0) {
                         $(".event-error").show();
@@ -608,58 +888,64 @@
 
                 // Select sport from model
                 $('.sports-box').click(function (event) {
-                    $('#sportid').val(event.target.id);
-                    $('#sportbtn b').html($(this).text());
-                    $('.tooltipped').tooltip();
-                    $('#sport-select-err').hide();
-                    $('.sportModel').hide();
-
+                    if($(this).hasClass('selected_sport')){
+                        $(this).removeClass('selected_sport');
+                    }else{
+                        $(this).addClass('selected_sport');
+                    }
                 });
                 
-
-                // Form validation
-                $('form').submit(function () {
-                    if ($('#sportbtn').text() == "Select a Sport") {
-                        $('#sportid').val(null);
-                    }
-                    var errormsg=false;
-                    $.ajax({
-                        url: '/error/',
-                        async: false,
-                        data: {
-                            'userid': $('#userid').val(),
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            if (data == 0) {
-                                alert('User not found');
-                                $('#userid').val('');
-                                $('#userid').error();
-                                $('#userid').focus();           
-                                errormsg = false;
-                            }else{
-                                errormsg = true;
-                            }
+                $(document).on('change','.checks',function(){
+                    let count = 0;
+                    $('.checks').each(function(){
+                        if($(this).is(':checked')){
+                            count++;
                         }
                     });
-                    return errormsg;
+                    if(!count){
+                        alert('Please select atleast one option')
+                        $(this).attr('checked', true);
+                        $(this).prop('checked', true);
+                    }
                 });
+
+                // Form validation
+                // $('#form1').on('submit',function () {
+                    // if ($('#sportbtn').text() == "Select a Sport") {
+                    //     $('#sportid').val(null);
+                    // }
+                    // var errormsg=false;
+                    // if(uuid!=''){
+                    //     errormsg=true;
+                    //     let uid = '<input type="hidden" value="'+uuid+'" name="user_id"/>';
+                    //     $('#form').append($(uid));
+                    //     console.log($(uid));
+                    // }else{
+                    //     alert('Please create a user');
+                    // }
+                    // $.ajax({
+                    //     url: '/error/',
+                    //     async: false,
+                    //     data: {
+                    //         'userid': $('#userid').val(),
+                    //     },
+                    //     success: function (data) {
+                    //         console.log(data);
+                    //         if (data == 0) {
+                    //             alert('User not found');
+                    //             $('#userid').val('');
+                    //             $('#userid').error();
+                    //             $('#userid').focus();           
+                    //             errormsg = false;
+                    //         }else{
+                    //             errormsg = true;
+                    //         }
+                    //     }
+                    // });
+                //     return errormsg;
+                // });
             });
-
-                                    // var index=1
-                                    // function legendanimation(){
-                                    //     if(index==1){
-                                    //         var div = document.getElementById("topic");
-                                    //         div.className="col-sm-10 offset-1 legend1";
-                                    //         index=0;
-                                    //     }else{
-                                    //         var div = document.getElementById("topic");
-                                    //         div.className = "col-sm-10 offset-1 legend2";
-                                    //         index = 1;
-                                    //     }
-                                    // }
-                                    // setInterval(legendanimation,2000);
-
+            
         </script>
         {% comment %} MAP SCRIPT - TO GET LATITUDE AND LONGITUDE {% endcomment %}
         <script>

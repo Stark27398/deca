@@ -1,26 +1,43 @@
 from django.shortcuts import render
 from users.models import *
-from users.forms import EmailForm
 import json, requests, urllib
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.core import serializers
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from users.resources import *
 from tablib import Dataset
 import csv
 import importlib
 import sys
 from django.views.decorators.csrf import csrf_exempt
+import uuid
 # Create your views here.
 
 @csrf_exempt
 def index(request):
     return render(request,'users/index.html',{
-        'sports':SportsMaster.objects.all(),
+        'sports':Sportsmaster.objects.all(),
         'options':Selection.objects.all(),
     })
+
+
+@csrf_exempt
+def createUser(request):
+    gender = request.POST['gender_id']
+    sportsId = request.POST['sports_id']
+    sportsId = json.loads(sportsId)
+    uid = uuid.uuid1()
+    params = {
+        "gender_id": gender,
+        "sport_preferences": sportsId,
+    }
+    print(params)
+    url = "https://deca-reco.azurewebsites.net/appdata_api/v1/users/"+str(uid)
+    print(url)
+    res = requests.post(url,json=params)
+    print(res.status_code)
+    return JsonResponse({'uuid':uid,'success':True},safe=False)
 
 def error(request):
     try:
@@ -45,22 +62,35 @@ def form(request):
 def recommendationPage(request):
     if request.method == 'POST':
         try:
-            uid = User.objects.get(email=request.POST.get('userid'))
+            uid = request.POST.get('user_id')
             # uid = User.objects.get(email='jayanth27398@gmail.com')
-            select = request.POST.get('selected')
+            # select = request.POST.get('selected')
             # if select != 'Events':
             #     return render(request,'users/recommend.html',{
             #         'req_err':'API is not available for '+select,
             #     })
-            # select='User'
+            select='User'
+            checked = []
+            # gender = request.POST['gender_id']
+            # sportsId = request.POST['sports_id']
+            # sportsId = json.loads(sportsId)
+            # uid = uuid.uuid1()
+            # params = {
+            #     "gender_id": gender,
+            #     "sport_preferences": sportsId,
+            # }
+            # print(params)
+            # url = "https://deca-reco.azurewebsites.net/appdata_api/v1/users/"+str(uid)
+            # print(url)
+            # res = requests.post(url, json=params)
+            # print('Status code',res.status_code)
             selected = Selection.objects.get(name=select)
             if selected.notAvailable:
                 return render(request,'users/recommend.html',{
                     'req_err':'API is not available for '+selected.name,
                 })
-            url = str(selected.url)+str(uid.userid) + \
+            url = str(selected.url)+str(uid) + \
                 '/'+str(selected.endpoint)+'?recompute=true&limit=20&offset=0'
-
             if selected.location:
                 lat = 13.056
                 lng = 77.5938
@@ -70,10 +100,14 @@ def recommendationPage(request):
                     lng = request.POST.get('geocode-lng')
                 url += '&latitude='+str(lat) + '&longitude='+str(lng)
             
-            sportsid = request.POST.get('sportid')
-            if sportsid:
-                url+= '&sports_id='+str(sportsid)
-
+            if selected.check:
+                if(request.POST.get('event')):
+                    checked.append(int(request.POST.get('event')))
+                if(request.POST.get('class')):
+                    checked.append(int(request.POST.get('class')))
+                if(request.POST.get('facility')):
+                    checked.append(int(request.POST.get('facility')))
+            # print(checked)
             print(url)
             # url = 'https://preprodrecoengine.decathlon.in/recommend_api/v1/users/'+uid.userid + \
             #     '/eventsforyou?latitude='+str(lat)+'&longitude=' + \
@@ -101,41 +135,44 @@ def recommendationPage(request):
                 typeId=[]
                 content=[]
                 className=[]
-                i=0
+                error_i=0
                 for res in result:
                     try:
-                        clsName = contentId.objects.get(
-                            typeId=res['content_type_id'])
-                        
-                        if clsName not in content:
-                            content.append(clsName)
-                        # cls_ = getattr(importlib.import_module(
-                        #     "users.models"), clsName.name)
-                        # spt_ = getattr(importlib.import_module(
-                        #     "users.models"), clsName.sport)
-                        cls_ = str_to_class(clsName.name)
-                        spt_ = str_to_class(clsName.sport)
-                        # print(type(clsName),clsName.sport)
-                        # print(cls_.objects.all())
-                        # print(type(spt_))
+                        if (not checked) or (int(res['content_type_id']) in checked):
+                            clsName = contentId.objects.get(
+                                typeId=res['content_type_id'])
+                            
+                            if clsName not in content:
+                                content.append(clsName)
+                            # cls_ = getattr(importlib.import_module(
+                            #     "users.models"), clsName.name)
+                            # spt_ = getattr(importlib.import_module(
+                            #     "users.models"), clsName.sport)
+                            cls_ = str_to_class(clsName.name)
+                            spt_ = str_to_class(clsName.sport)
+                            # print(type(clsName),clsName.sport)
+                            # print(cls_.objects.all())
+                            # print(type(spt_))
 
-                        sid = spt_.objects.filter(
-                            eventId=res[selected.keyId])
-                        # print(len(sid))
-                        event = cls_.objects.get(uuid=res[selected.keyId])
-                        for i in range(len(sid)):
-                            events.append(event)
-                            sports.append(SportsMaster.objects.get(
-                                uuid=(sid[i].sportsId)))
-                            # location.append(reverseGeocode(event.lat,event.lng))
-                            location.append(StoreDetails.objects.get(storeId=event.businessId))
-                            typeId.append(clsName.typeId)
-                            className.append(clsName.classtype)
+                            sid = spt_.objects.filter(**{clsName.key:res[selected.keyId]})
+                            # print(len(sid))
+                            event = cls_.objects.get(**{clsName.key:res[selected.keyId]})
+                            for i in range(len(sid)):
+                                events.append(event)
+                                sports.append(Sportsmaster.objects.get(
+                                    sport_id=(sid[i].sport_id)))
+                                try:
+                                    location.append(reverseGeocode(event.latitude,event.longitude))
+                                except:
+                                    location.append("")
+                                # location.append(StoreDetails.objects.get(storeId=event.businessId))
+                                typeId.append(clsName.typeId)
+                                className.append(clsName.classtype)
                             # print(className)
                     except Exception as e:  
                         print('no of error : %s' % e)
-                        i+=1 
-                print(i)
+                        error_i+=1 
+                print(error_i)
                 return render(request, 'users/recommend.html', {
                     'response': zip(events,sports,location,typeId,className),
                     'content':content,
