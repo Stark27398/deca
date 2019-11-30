@@ -3,7 +3,8 @@ from . import views
 
 app_name='users'
 urlpatterns=[
-    path('', views.index, name='index'),
+    path('', views.home, name='home'),
+    path('home/', views.index, name='index'),
     path('error/', views.error, name='error'),
     path('users/',views.recommendationPage,name='recommend'),
     path('form/',views.form,name='form'),

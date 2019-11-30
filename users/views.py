@@ -12,6 +12,12 @@ import sys
 from django.views.decorators.csrf import csrf_exempt
 import uuid
 # Create your views here.
+@csrf_exempt
+def home(request):
+    return render(request, 'users/home.html', {
+        'sports': Sportsmaster.objects.all(),
+        'options': Selection.objects.all(),
+    })
 
 @csrf_exempt
 def index(request):
@@ -62,6 +68,7 @@ def recommendationPage(request):
     if request.method == 'POST':
         try:
             uid = request.POST.get('user_id')
+            print(uid)
             # uid = User.objects.get(email='jayanth27398@gmail.com')
             # select = request.POST.get('selected')
             # if select != 'Events':
@@ -106,6 +113,14 @@ def recommendationPage(request):
                     checked.append(int(request.POST.get('class')))
                 if(request.POST.get('facility')):
                     checked.append(int(request.POST.get('facility')))
+
+            sport_id = request.POST['sport_id']
+            sport_id = json.loads(sport_id)
+            sport = []
+            for s in sport_id:
+                sport.append(s['sport_id'])
+            print('checked',checked)
+            print(sport)
             # print(checked)
             print(url)
             # url = 'https://preprodrecoengine.decathlon.in/recommend_api/v1/users/'+uid.userid + \
@@ -157,21 +172,23 @@ def recommendationPage(request):
                             # print(len(sid))
                             event = cls_.objects.get(**{clsName.key:res[selected.keyId]})
                             for i in range(len(sid)):
-                                events.append(event)
-                                sports.append(Sportsmaster.objects.get(
-                                    sport_id=(sid[i].sport_id)))
-                                try:
-                                    location.append(reverseGeocode(event.latitude,event.longitude))
-                                except:
-                                    location.append("")
-                                # location.append(StoreDetails.objects.get(storeId=event.businessId))
-                                typeId.append(clsName.typeId)
-                                className.append(clsName.classtype)
+                                if str(sid[i].sport_id) in sport:
+                                    # print(sid[i].sport_id)
+                                    events.append(event)
+                                    sports.append(Sportsmaster.objects.get(
+                                        sport_id=(sid[i].sport_id)))
+                                    try:
+                                        location.append(reverseGeocode(event.latitude,event.longitude))
+                                    except:
+                                        location.append("")
+                                    # location.append(StoreDetails.objects.get(storeId=event.businessId))
+                                    typeId.append(clsName.typeId)
+                                    className.append(clsName.classtype)
                             # print(className)
                     except Exception as e:  
-                        print('no of error : %s' % e)
+                        print('error : %s' % e)
                         error_i+=1 
-                print(error_i)
+                print('no of error :',error_i)
                 return render(request, 'users/recommend.html', {
                     'response': zip(events,sports,location,typeId,className),
                     'content':content,
@@ -182,7 +199,8 @@ def recommendationPage(request):
                     'req_err':"Api error",
                 })
 
-        except:
+        except Exception as e:
+            print(e)
             return redirect('users:index')
     else:   
         return HttpResponseRedirect("/")

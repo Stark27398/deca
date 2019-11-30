@@ -35,7 +35,7 @@
         
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         
     </head>
     <body>
@@ -44,6 +44,7 @@
                 height:820px;
                 background-image: linear-gradient(to bottom right, #3851B1, #00EB96);
                 overflow: hidden;
+                font-family: "Open Sans";
             }
             .rounded{
                 border-radius: 1.25rem !important;
@@ -88,10 +89,6 @@
             }
             .event-error,.event-location-error,.sports-location-error{
                 color: red;
-            }
-            .next{
-                margin: 5%;
-                vertical-align: bottom;
             }
             .container{
                 width:100%;
@@ -345,6 +342,7 @@
             #search{
                 border-radius:50px;
                 width: 90%;
+                align-items: center;
                 padding: 2px 16px;
                 background-color: white;
                 border-radius: 3px;
@@ -458,6 +456,309 @@
                 z-index: 1000000;
                 background-color: rgba(0, 0, 0, 0.4);
             }
+            main{
+                top:64px;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                flex-wrap: wrap;
+                font-family: "Open Sans";
+            }
+            .content svg {
+                z-index: 1000000;
+                transform: translateZ(0);
+            }
+            .male path, .male circle{
+                fill: #15a2ff;
+            }
+            .female path, .female circle{
+                fill: #FF66FF;
+            }
+            .male:hover path, .male:hover circle{
+                fill:white;
+            }
+            .female:hover path, .female:hover circle{
+                fill:white;
+            }
+            .template{
+                width: 700px;
+                height: 500px;
+                top:-10%;
+                background: #fff;
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+                transition: all 0.3s ease-out;
+                text-decoration: none;
+            }
+            .head{
+                float:left;
+                width:100%;
+                height:430px;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .internal{
+                width:700px;
+                height:100%;
+                overflow-y: hidden;
+                display: inline-block;
+            }
+            .locator{
+                width:700px;
+                height:100%;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                text-decoration: none;
+            }
+            .foot{
+                width:100%;
+                height:70px;
+                padding-top:15px;
+            }
+            .row{
+                width:100%;
+                height:70px;
+            }
+            .back{
+                float: left;
+                display: none;
+            }
+            .next{
+                float: right;
+            }
+            .finish{
+                float: right;
+                display: none;
+            }
+            header{
+                width: 100%;
+                height:50px;
+                text-align: center;
+                font-size:35px;
+            }
+            .content{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            a{
+                text-decoration: none !important;
+            }
+            .product {
+                --bg-color: #B8F9D3;
+                --bg-color-light: #e2fced;
+                --text-color-hover: #4C5656;
+                --box-shadow-color: rgba(184, 249, 211, 0.48);
+
+                width: 200px;
+                height: 150px;
+                background: #fff;
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+                transition: all 0.3s ease-out;
+                text-decoration: none;
+            }
+            .male {
+                --bg-color: #15A2FF;
+                --bg-color-light: rgb(100, 193, 255);
+                --text-color-hover: #4C5656;
+                --box-shadow-color: rgba(100, 193, 255, 0.48);
+
+                width: 200px;
+                height: 150px;
+                background: #fff;
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+                transition: all 0.3s ease-out;
+                text-decoration: none;
+            }
+            .female{
+                --bg-color: #FF66FF;
+                --bg-color-light: rgb(253, 156, 253);
+                --text-color-hover: #4C5656;
+                --box-shadow-color: rgba(255, 148, 255, 0.48);
+
+                width: 200px;
+                height: 150px;
+                background: #fff;
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+                transition: all 0.3s ease-out;
+                text-decoration: none;
+            }
+            .sport_product {
+                --bg-color: #B8F9D3;
+                --bg-color-light: #e2fced;
+                --text-color-hover: #4C5656;
+                --box-shadow-color: rgba(184, 249, 211, 0.48);
+
+                width: 200px;
+                height: 50px;
+                background: #fff;
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+                transition: all 0.3s ease-out;
+                text-decoration: none;
+            }
+            .content .card:hover {
+                transform: translateY(-5px) scale(1.005) translateZ(0);
+                box-shadow: 0 24px 36px rgba(0,0,0,0.11),
+                0 24px 46px var(--box-shadow-color);
+            }
+
+            .content .card:hover .overlay {
+                transform: scale(120) translateZ(0);
+            }
+
+            .content .card:hover .circle {
+                border-color: var(--bg-color-light);
+                background: var(--bg-color);
+            }
+
+            .content .card:hover .circle:after {
+                background: var(--bg-color-light);
+            }
+
+            .content .card:hover .inprogress {
+                display: block;
+            }
+
+            .content .card:hover p {
+                color: var(--text-color-hover); 
+            }
+
+            .content .card:active {
+                transform: scale(1) translateZ(0);
+                box-shadow: 0 15px 24px rgba(0,0,0,0.11),
+                0 15px 24px var(--box-shadow-color);
+            }
+
+            .content .card p{
+                margin-top: 15px;
+                z-index: 1000;
+                transition: color 0.3s ease-out;
+            }
+
+            .circle {
+                width: 131px;
+                height: 131px;
+                border-radius: 50%;
+                background: #fff;
+                border: 2px solid var(--bg-color);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                z-index: 1;
+                transition: all 0.3s ease-out;
+            }
+
+            .circle:after {
+                content: "";
+                width: 118px;
+                height: 118px;
+                display: block;
+                position: absolute;
+                background: var(--bg-color);
+                border-radius: 50%;
+                top: 7px;
+                left: 7px;
+                transition: opacity 0.3s ease-out;
+            }
+
+            .overlay {
+                width: 2px;
+                position: absolute;
+                height: 2px;
+                border-radius: 50%;
+                background: var(--bg-color);
+                top: 70px;
+                left: 50px;
+                z-index: 0;
+                transition: transform 0.3s ease-out;
+            }
+            .checker,.gender{
+                transform: translateY(50%);
+            }
+            
+            .sport_checker {
+                margin-left: -9px;
+                width:100%;
+                height:290px;
+                overflow-y:auto;
+            }
+            .selector{
+                color: #4C5656;
+                transform: translateY(-5px) scale(1.005) translateZ(0);
+                box-shadow: 0 24px 36px rgba(0,0,0,0.11),
+                0 24px 46px var(--box-shadow-color);
+            }
+            .selector .overlay {
+                transform: scale(120) translateZ(0);
+            }
+
+            .selector .circle {
+                border-color: var(--bg-color-light);
+                background: var(--bg-color);
+            }
+
+            .selector .circle:after {
+                background: var(--bg-color-light);
+            }
+            .selector path, .selector circle{
+                fill:white;
+            }
+            .foot .btn{
+                border-radius: 15px;
+                background-color: #6cb5f3;
+            }
+            .foot .btn:hover {
+                background-color:#6BA5D6;
+                transition:all .3s;
+            }
+            .foot .btn:active {
+                background-color:#5F8AAF;
+            }
+            #form1{
+                display:none;
+            }
         </style>
         
         <nav>
@@ -503,204 +804,191 @@
                 </ul>
             </div>
         </nav>
-        <div class="row"><br><br></div>
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <div class="container">
-                    <div class="card top shadow rounded">
-                        <legend id="topic" class="col-sm-10 offset-1"><span>User Recommendation</span></legend>
-                        <div class="center1">
-                            <form method="POST" id="form1" action="/users/" autocomplete="off">
-                            {% csrf_token %}
-                                <!-- <div class="center combo1 input-field">
-                                {% comment %} COMBOBOX - SELECTION {% endcomment %}
-                                    <select class="form-control" id="combobox1" name="selected" style="display: none" autocomplete="off">
-                                        <option value="0" selected disabled>---- Select Type ----</option>
-                                        {% for event in options %}
-                                            <option value="{{event}}">{{event}}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <p class="event-error" style="display:none">
-                                        Please select a valid option
-                                    </p>
-                                {% comment %} ## END ## COMBOBOX - SELECTION {% endcomment %}
-                                </div> -->
-                                <div>
-                            
-                                <div id="sports-advice-content" style="display:none">
-                                    <h1>This is Sports advice</h1>
-                                </div>
+        <main>
+            <div class="card template">
+                <div class="head">
+                    <div class="internal">
+                        <header>Select your types of Recommendations</header>
+                        <hr>
+                        <div class="content checker">
+                            <a href="#" class="card product event" id="1">
+                                <div class="overlay"></div>
+                                <p><b>Events</b></p>
+                            </a>
+                            <a href="#" class="card product class" id="8">
+                                <div class="overlay"></div>
+                                <p><b>Class Packs</b></p>
+                            </a>
+                            <a href="#" class="card product facility" id="2">
+                                <div class="overlay"></div>
+                                <p><b>Playgrounds</b></p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="internal">
+                        <header>Who are you ?</header>
+                        <hr>
+                        <div class="content gender">
+                            <a href="#" class="card male" style="padding:15px"
+                                id="cb2fd832-d606-11e9-86b1-6f3c802f8697">
+                                <div class="overlay"></div>
+                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 53.545 53.545" style="enable-background:new 0 0 53.545 53.545;"
+                                    xml:space="preserve">
+                                    <g>
+                                        <g>
+                                            <circle cx="26.686" cy="4.507" r="4.507" />
+                                            <path 
+                                                d="M28.256,11.163c-1.123-0.228-2.344-0.218-3.447,0.042c-7.493,0.878-9.926,9.551-9.239,16.164
+                                                c0.298,2.859,4.805,2.889,4.504,0c-0.25-2.41-0.143-6.047,1.138-8.632c0,3.142,0,6.284,0,9.425c0,0.111,0.011,0.215,0.016,0.322
+                                                c-0.003,0.051-0.015,0.094-0.015,0.146c0,7.479-0.013,14.955-0.322,22.428c-0.137,3.322,5.014,3.309,5.15,0
+                                                c0.242-5.857,0.303-11.717,0.317-17.578c0.244,0.016,0.488,0.016,0.732,0.002c0.015,5.861,0.074,11.721,0.314,17.576
+                                                c0.137,3.309,5.288,3.322,5.15,0c-0.309-7.473-0.32-14.949-0.32-22.428c0-0.232-0.031-0.443-0.078-0.646
+                                                c-0.007-3.247-0.131-6.497-0.093-9.742c1.534,2.597,1.674,6.558,1.408,9.125c-0.302,2.887,4.206,2.858,4.504,0
+                                                C38.678,20.617,36.128,11.719,28.256,11.163z" />
+                                        </g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a href="#" class="card female" style="padding:15px"
+                                id="cb2fd08a-d606-11e9-86b0-33a07629f3b9">
+                                <div class="overlay"></div>
+                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 307.996 307.996" style="enable-background:new 0 0 307.996 307.996;"
+                                    xml:space="preserve">
+                                    <g>
+                                        <path 
+                                            d="M232.411,167.171l-31.529-89.995c-2.045-5.838-7.724-8.873-13.633-8.873h-66.503c-5.909,0-11.587,3.035-13.633,8.873
+                                            l-31.529,89.995c-2.3,6.565,0.561,14.016,6.89,16.904c1.822,0.831,3.712,1.218,5.564,1.218c5.507,0,10.661-3.438,12.585-8.929
+                                            l15.596-44.515v9.194L96.375,208.48c-0.539,3.963,1.413,7.983,5.224,9.947c1.39,0.716,2.956,1.026,4.519,1.026l10.367,0v72.09
+                                            c0,8.616,6.621,16.03,15.228,16.435c9.189,0.433,16.775-6.89,16.775-15.984v-67.032c0-3.043,2.467-5.509,5.509-5.509h0
+                                            c3.043,0,5.509,2.467,5.509,5.509v66.58c0,8.616,6.622,16.03,15.228,16.435c9.189,0.433,16.775-6.89,16.775-15.984v-72.542
+                                            l10.367,0c1.564,0,3.129-0.31,4.519-1.026c3.81-1.964,5.763-5.984,5.224-9.947l-19.843-67.436v-9.194l15.596,44.515
+                                            c1.924,5.491,7.078,8.929,12.585,8.929c1.851,0,3.743-0.387,5.564-1.219C231.851,181.187,234.711,173.736,232.411,167.171z" />
+                                        <circle cx="154.207" cy="28.995" r="28.995" />
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                    <g>
+                                    </g>
+                                </svg>
 
-                                <div id="form">
-                                    <div class="row check">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="checkevent" name="event" value="1"
-                                                    class="filled-in checks" checked="checked" />
-                                                <span>Events</span>
-                                            </label>
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="checkclass" name="class" value="8"
-                                                    class="filled-in checks" checked="checked" />
-                                                <span>ClassPacks</span>
-                                            </label>
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="checkfacility" name="facility" value="2"
-                                                    class="filled-in checks" checked="checked" />
-                                                <span>Facilities</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-field col s12">
-                                            <select id="gender" name="gender">
-                                                <option value="cb2fd832-d606-11e9-86b1-6f3c802f8697" selected>Male
-                                                </option>
-                                                <option value="cb2fd08a-d606-11e9-86b0-33a07629f3b9">Female</option>
-                                            </select>
-                                            <label>Gender</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div id="selectSport" class="container locate">
-                                            <button type="button" id="sportbtn"
-                                                class="btn btn-light waves-effect waves-light"><b>Select a Sport</b><i
-                                                    class="fa fa-info-circle fa-1 tooltipped" aria-hidden="true"
-                                                    data-html="True" data-position="right"
-                                                    data-tooltip="Select a sport to show recommendations based on your selection <br/> <b>OPTIONAL</b>"
-                                                    id="sportbtninfo"></i></button>
-                                        </div>
-                                        <input id="sportid" name="sportid" type="hidden" required />
-                                        <br>
-                                    </div>
-                                    <div id="event-content">
-                                        <div class="container locate" id="locationField">
-                                            <div class="input-icons">
-                                                <input id="autocomplete" placeholder="Enter a location" type="text"
-                                                    class="validate input-field" REQUIRED>
-                                                <i class="fa fa-info-circle fa-1 tooltipped" data-html="True"
-                                                    data-position="right"
-                                                    data-tooltip="Enter a location to show recommendations based on your location preference  <br/> <b>REQUIRED</b>"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input id="geocode-lat" name="geocode-lat" type="hidden" />
-                                    <input id="geocode-lng" name="geocode-lng" type="hidden" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="internal">
+                        <header>Select your Sport Preferences</header>
+                        <hr>
+                        <div class="container">
+                            <div class="searchinput">
+                                <input class="sportsSearch" type="text" id="search" placeholder="Search ..." />
+                            </div>
+                        </div>
+                        <div class="content sport_checker" >
+                            {% for sport in sports %}
+                                <a href="#" class="card sport_product" id="{{sport.sport_id}}">
+                                    <div class="overlay"></div>
+                                    <p><b>{{sport.sport_name}}</b></p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="internal">
+                        <div class="locator">
+                            <header>What is your locality?</header>
+                            <hr>
+                            <div class="container locate" id="locationField">
+                                <div class="input-icons">
+                                    <input id="autocomplete" placeholder="Enter a location" type="text"
+                                        class="validate input-field" REQUIRED>
+                                    <i class="fa fa-info-circle fa-1 tooltipped" data-html="True" data-position="right"
+                                        data-tooltip="Enter a location to show recommendations based on your location preference  <br/> <b>REQUIRED</b>"></i>
                                 </div>
-                                
-                                
-                                {% comment %} ARROW BUTTON --> {% endcomment %}
-                                    <button type="submit" id="submit" class="btn btn-light waves-effect waves-light next">Try Recommendations<i class="material-icons" id="arrow" >send</i></button>
-                                {% comment %} ## END ## ARROW BUTTON --> {% endcomment %}
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot">
+                    <div class="row">
+                        <div class="col s6">
+                            <div class="back">
+                                <button class="btn btn-primary" id="back">Back</button>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="next">
+                                <button class="btn btn-primary" id="next">Next</button>
+                            </div>
+                            <div class="finish">
+                                <button class="btn btn-primary" id="finish">Finish</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        
-        {% comment %} SPORTS SELECTION POPUP MODEL {% endcomment %}
-        <div class="sportModel">
-            <div class="sportSelectContent">
-                
-                <div class="sportModelHeader">
-                    <span class="close">&times;</span>
-                </div>
-                <div class="container">
-                    <div class="searchinput">
-                        <input class="sportsSearch" type="text" id="search" placeholder="Search ..."/>
-                    </div>
-                </div>
-                <div class="sportModelBody">
-                    <div class="container center-align">
-                        {% for sport in sports %}
-                            <div class="sports-box" id='{{sport.sport_id}}'><b>{{sport.sport_name}}</b></div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="sportModelFooter">
-                    <button class="btn btn-primary saveSports" id="save_sport">Save</button>
-                </div>
-            </div>
-        </div>
-        {% comment %} ## END ## SPORTS SELECTION POPUP MODEL {% endcomment %}
-
-        {% comment %} USER ID POPUP MODEL {% endcomment %}
-        <div id="usermodal" class="modal">
-            <div class="modal-content">
-                <h4>Enter Email Address</h4>
-                <hr>
-                <div id="getuserid" class="container locate">
-                    <div class="input-icons">
-                        <input name="userid" id="userid" placeholder="Email ID" type="Email" class="validate input-field" REQUIRED>
-                        <i class="fa fa-info-circle fa-1 tooltipped" data-html="True" aria-hidden="true" data-position="right"
-                            data-tooltip="Enter your email ID linked to your decathlon account to show recommendations  based on your history <br/> <b>REQUIRED</b>"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="waves-effect waves-green btn-flat" id="idnext">Next</a>
-            </div>
-        </div>
-        {% comment %} ## END ## USER ID POPUP MODEL {% endcomment %}
-        
-        
-        <div class="modal fade" id="createUser">
-            <div class="modal-dialog">
-                <div class="modal-content">
-        
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h6 class="modal-title">Create New User</h6>
-                        <button type="button" class="modal-close close" data-dismiss="modal">&times;</button>
-                    </div>
-        
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <form method="POST" id="db_select" action="/saveConn/" class="center-align" style="margin-top:5%"
-                            autocomplete="off">
-                            {% csrf_token %} 
-        
-                            <div class="form-group">
-                                <div class="input-field col s12">
-                                    <select id="gender" name="gender">
-                                        <option value="cb2fd832-d606-11e9-86b1-6f3c802f8697" selected>Male</option>
-                                        <option value="cb2fd08a-d606-11e9-86b0-33a07629f3b9">Female</option>
-                                    </select>
-                                    <label>Gender</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div id="selectSport" class="container locate">
-                                    <button type="button" id="sportbtn" class="btn btn-light waves-effect waves-light"><b>Select a Sport</b><i
-                                            class="fa fa-info-circle fa-1 tooltipped" aria-hidden="true" data-html="True" data-position="right"
-                                            data-tooltip="Select a sport to show recommendations based on your selection <br/> <b>OPTIONAL</b>"
-                                            id="sportbtninfo"></i></button>
-                                </div>
-                                <input id="sportid" name="sportid" type="hidden" required />
-                                <br>
-                            </div>
-        
-                        </form>
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <form id="create_user" method="POST" action="/createuser/">
-                            <button class="btn btn-success" name="createUser" type="submit" name="action"
-                                id="createUser">Create</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        
-        </div>
-        
+        </main>
+        <form id="form1" action="/users/" method="POST">
+            <input id="geocode-lat" name="geocode-lat" type="hidden" />
+            <input id="geocode-lng" name="geocode-lng" type="hidden" />
+        </form>
         <div class="loader">
             <div class="loader_container">
                 <div class="lds-hourglass"></div>
@@ -712,7 +1000,149 @@
             var uuid = '';
             $(document).ready(function () {
                 // M.AutoInit();
-                
+                let pageno = 1;
+                $('.head').animate({
+                    scrollLeft: "=0px"
+                }, "slow");
+                $('#next').click(function() {
+                    pageno++;
+                    if(pageno<4){
+                        $('.next').show();
+                    }else{
+                        $('.next').hide();
+                    }
+                    if(pageno>1){
+                        $('.back').show();
+                    }else{
+                        $('.back').hide();
+                    }
+                    if(pageno==4){
+                        $('.finish').show();
+                    }else{
+                        $('.finish').hide();
+                    }
+                    
+                    event.preventDefault();
+                    $('.head').animate({
+                        scrollLeft: "+=700px"
+                    }, "slow");
+                });
+
+                $('#back').click(function() {
+                    pageno--;
+                    if(pageno<4){
+                        $('.next').show(); 
+                    }else{
+                        $('.next').hide(); 
+                    } 
+                    if(pageno>1){
+                        $('.back').show();
+                    }else{
+                        $('.back').hide();
+                    }
+                    if(pageno==4){
+                        $('.finish').show();
+                    }else{
+                        $('.finish').hide();
+                    }
+                    
+                    event.preventDefault();
+                    $('.head').animate({
+                        scrollLeft: "-=700px"
+                    }, "slow");
+                });
+
+                $('.checker a').on('click',function(){
+                    if($(this).hasClass('selector')){
+                        $(this).removeClass('selector');
+                    }else{
+                        $(this).addClass('selector');
+                    }
+                });
+
+                $('.gender a').on('click',function(){
+                    $('.gender .selector').removeClass('selector');
+                    $(this).addClass('selector');
+                });
+
+                $('.sport_checker a').on('click',function(){
+                    if($(this).hasClass('selector')){
+                        $(this).removeClass('selector');
+                    }else{
+                        $(this).addClass('selector');
+                    }
+                });
+                $('#finish').on('click',function(){
+                    console.log($('#autocomplete').val());
+                    codeAddress($('#autocomplete').val());
+                    let pref="";
+                    let gen="";
+                    let sp="";
+                    let category = $('.checker .selector').length;
+                    if(category){
+                        $('.checker .selector').each(function(){
+                            if($(this).hasClass('event')){
+                                pref+='<input name="event" type="hidden" value="1" />';
+                            }else if($(this).hasClass('class')){
+                                pref+='<input name="class" type="hidden" value="8" />';
+                            }else if($(this).hasClass('facility')){
+                                pref+='<input name="facility" type="hidden" value="2" />';
+                            }
+                        });
+                    }else{
+                        pref='<input name="event" type="hidden" value="1"/>\
+                            <input name="class" type="hidden" value="8"/>\
+                            <input name="facility" type="hidden" value="2"/>';
+                        
+                    }
+                    if($('.gender .selector').length){
+                        let gender_id=$('.gender .selector').attr('id');
+                        gen='<input id="gender" name="gender" value="'+gender_id+'"/>';
+                    }else{
+                        // alert('Please select a gender');
+                        M.toast({html: 'Please select a gender', classes: 'rounded'});
+                        $('.head').animate({
+                            scrollLeft:'700px',
+                        });
+                        pageno=2;
+                        // $('.finish').hide();
+                        // $('.next').show();
+                        return;
+                    }
+                    if($('.sport_checker .selector').length){
+                        sports_id=[];
+                        $('.sport_checker .selector').each(function(){
+                            sports_id.push($(this).attr('id'));
+                        })
+                    }else{
+                        // alert('Please select atleast one sport');
+                        M.toast({html: 'Please select atleast one sport', classes: 'rounded'});
+                        $('.head').animate({
+                            scrollLeft:'1400px',
+                        });
+                        pageno=3;
+                        // $('.finish').hide();
+                        // $('.next').show();
+                        return;
+                    }
+                    let lat = $('#geocode-lat').val();
+                    let lng = $('#geocode-lng').val();
+                    if(!lat){
+                        // alert('Please enter a location');
+                        M.toast({html: 'Please enter a location', classes: 'rounded'});
+                        $('.head').animate({
+                            scrollLeft:'2100px',
+                        });
+                        pageno=4;
+                        return;
+                    }
+                    let innerform = '<div class="innerform"></div>';
+                    $('.innerform').remove();
+                    $('#form1').append($(innerform));
+                    $('.innerform').append($(pref));
+                    $('.innerform').append($(gen));
+                    $('#form1').submit();
+                });
                 $('#createUser').modal();
                 // $('#usermodal').modal();
                 // $('#usermodal').openModal({
@@ -791,7 +1221,9 @@
                                     uuid = data.uuid;
                                     console.log(uuid);
                                     let uid = '<input type="hidden" value="'+uuid+'" name="user_id" />';
-                                    $('#form').append($(uid));
+                                    let sport_ids = "<input type='hidden' name='sport_id' value='" + JSON.stringify(sports) + "' />";
+                                    $('.innerform').append($(uid));
+                                    $('.innerform').append($(sport_ids));
                                     ret = true;
                                     $('.loader .loading_text b').text('Loading...');
                                     $('.loader .loading_text').css('transform','translate(70px,40px)');
@@ -802,6 +1234,8 @@
                     }else{
                         alert('Please select a sport');
                     }
+                    // $('.loader').hide();
+                    // return false;
                     return ret;
                 });
                 //COMBO BOX - FUNCTIONS
@@ -881,7 +1315,7 @@
                 //Search function
                 $('#search').keyup(function () {
                     var value = $.trim($(this).val().toLowerCase());
-                    $('.sports-box').filter(function () {
+                    $('.sport_checker a').filter(function () {
                         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
                     });
                 });
