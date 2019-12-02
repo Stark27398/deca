@@ -249,59 +249,6 @@
                 background-color: #0082c3;
                 border: 0;
             }
-            
-
-            @-webkit-keyframes animatetop {
-                from {top:-300px; opacity:0} 
-                to {top:0; opacity:1}
-            }
-
-            @keyframes animatetop {
-                from {top:-300px; opacity:0}
-                to {top:0; opacity:1}
-            }
-            
-            @-webkit-keyframes animatelegend {
-                from {
-                    background-position: right bottom;
-                    transition: all 2s ease-out;
-                }
-                to {
-                    background-position: left bottom;
-                }
-            }
-
-            @keyframes animatelegend {
-                from {
-                    background-position: right bottom;
-                    transition: all 2s ease-out;
-                }
-                to {
-                    background-position: left bottom;
-                }
-            }
-
-             @-webkit-keyframes animatelegend2 {
-                from {
-                    background-position: right bottom;
-                    transition: all 2s ease-out;
-                }
-                to {
-                    background-position: left bottom;
-                }
-            }
-
-            @keyframes animatelegend2 {
-                from {
-                    background-position: right bottom;
-                    transition: all 2s ease-out;
-                }
-                to {
-                    background-position: left bottom;
-                }
-            }
-
-
 
             .sports-box{
                 
@@ -466,20 +413,20 @@
                 flex-wrap: wrap;
                 font-family: "Open Sans";
             }
-            .content svg {
+            .gender .gen {
                 z-index: 1000000;
                 transform: translateZ(0);
             }
-            .male path, .male circle{
+            .male .gen path, .male .gen circle{
                 fill: #15a2ff;
             }
-            .female path, .female circle{
+            .female .gen path, .female .gen circle{
                 fill: #FF66FF;
             }
-            .male:hover path, .male:hover circle{
+            .male:hover .gen path, .male:hover .gen circle{
                 fill:white;
             }
-            .female:hover path, .female:hover circle{
+            .female:hover .gen path, .female:hover .gen circle{
                 fill:white;
             }
             .template{
@@ -645,6 +592,8 @@
 
             .content .card:hover .overlay {
                 transform: scale(120) translateZ(0);
+                -webkit-transform: scale(85) translateZ(0);
+                -moz-transform: scale(120) translateZ(0);
             }
 
             .content .card:hover .circle {
@@ -707,12 +656,21 @@
                 width: 2px;
                 position: absolute;
                 height: 2px;
-                border-radius: 50%;
-                background: var(--bg-color);
-                top: 70px;
-                left: 50px;
+                transform: translate3d(0,0,0);
+                -webkit-transform: translate3d(0,0,0);
+                border-radius: 50% !important;
+                -moz-border-radius: 50% !important;
+                -webkit-border-radius: 50% !important;
+                border-radius: 50% !important;
+                background: transparent;
+                top:70px;
+                left:50px;
                 z-index: 0;
                 transition: transform 0.3s ease-out;
+                -webkit-transition: transform 0.3s ease-out;
+            }
+            .overlay circle,.selector .overlay circle{
+                fill:var(--bg-color);
             }
             .checker,.gender{
                 transform: translateY(50%);
@@ -732,6 +690,8 @@
             }
             .selector .overlay {
                 transform: scale(120) translateZ(0);
+                -webkit-transform: scale(85) translateZ(0);
+                -moz-transform: scale(120) translateZ(0);
             }
 
             .selector .circle {
@@ -742,7 +702,7 @@
             .selector .circle:after {
                 background: var(--bg-color-light);
             }
-            .selector path, .selector circle{
+            .selector .gen path, .selector .gen circle{
                 fill:white;
             }
             .foot .btn{
@@ -812,15 +772,21 @@
                         <hr>
                         <div class="content checker">
                             <a href="#" class="card product event" id="1">
-                                <div class="overlay"></div>
+                                <svg class="overlay">
+                                    <circle cx="10" cy="20" r="200"/>
+                                </svg>
                                 <p><b>Events</b></p>
                             </a>
                             <a href="#" class="card product class" id="8">
-                                <div class="overlay"></div>
+                                <svg class="overlay">
+                                    <circle cx="10" cy="20" r="200" />
+                                </svg>
                                 <p><b>Class Packs</b></p>
                             </a>
                             <a href="#" class="card product facility" id="2">
-                                <div class="overlay"></div>
+                                <svg class="overlay">
+                                    <circle cx="10" cy="20" r="200" />
+                                </svg>
                                 <p><b>Playgrounds</b></p>
                             </a>
                         </div>
@@ -831,8 +797,10 @@
                         <div class="content gender">
                             <a href="#" class="card male" style="padding:15px"
                                 id="cb2fd832-d606-11e9-86b1-6f3c802f8697">
-                                <div class="overlay"></div>
-                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                <svg class="overlay">
+                                    <circle cx="10" cy="20" r="200" />
+                                </svg>
+                                <svg class="gen" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     viewBox="0 0 53.545 53.545" style="enable-background:new 0 0 53.545 53.545;"
                                     xml:space="preserve">
@@ -883,8 +851,10 @@
                             </a>
                             <a href="#" class="card female" style="padding:15px"
                                 id="cb2fd08a-d606-11e9-86b0-33a07629f3b9">
-                                <div class="overlay"></div>
-                                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                <svg class="overlay">
+                                    <circle cx="10" cy="20" r="200" />
+                                </svg>
+                                <svg class="gen" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     viewBox="0 0 307.996 307.996" style="enable-background:new 0 0 307.996 307.996;"
                                     xml:space="preserve">
@@ -945,7 +915,9 @@
                         <div class="content sport_checker" >
                             {% for sport in sports %}
                                 <a href="#" class="card sport_product" id="{{sport.sport_id}}">
-                                    <div class="overlay"></div>
+                                    <svg class="overlay">
+                                        <circle cx="10" cy="20" r="200" />
+                                    </svg>
                                     <p><b>{{sport.sport_name}}</b></p>
                                 </a>
                             {% endfor %}
@@ -1073,8 +1045,6 @@
                     }
                 });
                 $('#finish').on('click',function(){
-                    console.log($('#autocomplete').val());
-                    codeAddress($('#autocomplete').val());
                     let pref="";
                     let gen="";
                     let sp="";
@@ -1143,58 +1113,14 @@
                     $('.innerform').append($(gen));
                     $('#form1').submit();
                 });
-                $('#createUser').modal();
-                // $('#usermodal').modal();
-                // $('#usermodal').openModal({
-                //     dismissible: false,
-                //     startingTop:'10%'
-                // });
-                $('#newuser').on('click',function(){
-                    $('#createUser').openModal();
-                });
+                
                 $(window).on('resize', function () {
                     var win = $(this); //this = window
                     $('body').height(win.height());
                 });
                 $('select').formSelect();
                 $('.tooltipped').tooltip();
-                $('#combobox1').val(0);
                 
-                // ON CLICKING NEXT AFTER USER MAIL INPUT
-                $('#idnext').on('click',function(){
-                    var errormsg = false;
-
-                    $.ajax({
-                        url: '/error/',
-                        async: false,
-                        data: {
-                            'userid': $('#userid').val(),
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            if (data == 0) {
-                                alert('User not found');
-                                $('#userid').val('');
-                                $('#userid').error();
-                                $('#userid').focus();
-                                errormsg = false;
-                            } else {
-                                errormsg = true;
-                                $('#usermodal').hide();
-                            }
-                        }
-                    });
-                });
-                $('#save_sport').on('click',function(){
-                    sports_id = [];
-                    $('.selected_sport').each(function(){
-                        sports_id.push($(this).attr('id'));
-                    })
-                    if(sports_id.length){
-                        $('.sportModel').hide();
-                    }
-                    console.log(sports_id);
-                });
                 $('#form1').on('submit',function(){
                     $('.loader').show();
                     $('.loader .loading_text b').text('Creating User...');
@@ -1238,43 +1164,7 @@
                     // return false;
                     return ret;
                 });
-                //COMBO BOX - FUNCTIONS
-                $("#combobox1").change(function () {
-                    console.log($(window).height());
-
-                    var selected = $("#combobox1").val();
-                    if (selected != 0) {
-                        $.ajax({
-                            url: '/form/',
-                            data: {
-                                'selected': selected
-                            },
-                            success: function (data) {
-                                $('#form').empty();
-                                if (data.event[0].fields.check) {
-                                    $('#form').append(data.template[0].fields.check);
-                                }
-                                if (data.event[0].fields.location) {
-                                    $('#form').append(data.template[0].fields.location);
-                                    initAutocomplete();
-                                }
-                                $('.tooltipped').tooltip();
-                            }
-                        });
-                    }
-
-                    if ($("#combobox1").val() == 0) {
-                        $(".event-error").show();
-                        $(".next").hide();
-                        $('#form').empty();
-                        $("#topic").text("User Recommendation");
-                    } else {
-                        $(".event-error").hide();
-                        $(".next").show();
-                        $("#topic").html('<span>' + $("#combobox1").val() + '</span>');
-                    }
-                });
-
+                
                 // SUBMIT BUTTON - FUNCTIONS
                 $('#submit').click(function () {
                     if ($('#autocomplete').val() && $('#userid').val() && $('#sportid').val())
@@ -1282,33 +1172,16 @@
                 });
 
                 // EMAIL - VALIDATION
-                $('#userid').validate();
 
                 // ASSIGN LAT - LNG
                 $(document).on('focusout', '#autocomplete', function () {
                     console.log($('autocomplete').val());
                     codeAddress($('#autocomplete').val());
                 });
-
-                // Testing button
-                $('#testing').click(function () {
-                    console.log($('#geocode').val(), $('#userid').val(), latlng);
-                });
-
-                //Model funtions
-                $(document).on('click', '#sportbtn', function () {
-                    $('.sportModel').show();
-                    $('#search').focus();
-                });
-                $('#search').focusout(function(){
-                    $('#search').focus();
-                });
-                $('.close').click(function () {
-                    $('.sportModel').hide();
-                });
-                $(window).click(function (event) {
-                    if (event.target.className == 'sportModel') {
-                        $('.sportModel').hide();
+                $(document).on('keyup', '#autocomplete', function (e) {
+                    if(e.keyCode == 13){
+                        console.log($('autocomplete').val());
+                        codeAddress($('#autocomplete').val());
                     }
                 });
 
@@ -1328,56 +1201,6 @@
                         $(this).addClass('selected_sport');
                     }
                 });
-                
-                $(document).on('change','.checks',function(){
-                    let count = 0;
-                    $('.checks').each(function(){
-                        if($(this).is(':checked')){
-                            count++;
-                        }
-                    });
-                    if(!count){
-                        alert('Please select atleast one option')
-                        $(this).attr('checked', true);
-                        $(this).prop('checked', true);
-                    }
-                });
-
-                // Form validation
-                // $('#form1').on('submit',function () {
-                    // if ($('#sportbtn').text() == "Select a Sport") {
-                    //     $('#sportid').val(null);
-                    // }
-                    // var errormsg=false;
-                    // if(uuid!=''){
-                    //     errormsg=true;
-                    //     let uid = '<input type="hidden" value="'+uuid+'" name="user_id"/>';
-                    //     $('#form').append($(uid));
-                    //     console.log($(uid));
-                    // }else{
-                    //     alert('Please create a user');
-                    // }
-                    // $.ajax({
-                    //     url: '/error/',
-                    //     async: false,
-                    //     data: {
-                    //         'userid': $('#userid').val(),
-                    //     },
-                    //     success: function (data) {
-                    //         console.log(data);
-                    //         if (data == 0) {
-                    //             alert('User not found');
-                    //             $('#userid').val('');
-                    //             $('#userid').error();
-                    //             $('#userid').focus();           
-                    //             errormsg = false;
-                    //         }else{
-                    //             errormsg = true;
-                    //         }
-                    //     }
-                    // });
-                //     return errormsg;
-                // });
             });
             
         </script>

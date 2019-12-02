@@ -83,28 +83,28 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'OPTIONS': {
-            'options': '-c search_path=django,masterdata,userdata,public'
-        },
-        'NAME': 'dplatform_prod',
-        'USER': 'deca_api_dev@deca-api-pg-dev',
-        'PASSWORD': 'Sot@13522',
-        'HOST': 'deca-api-pg-dev.postgres.database.azure.com',
-        'PORT': 5432
-    }
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'OPTIONS': {
     #         'options': '-c search_path=django,masterdata,userdata,public'
     #     },
     #     'NAME': 'dplatform_prod',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'postgres',
-    #     'HOST': 'localhost',
-    #     'PORT': 5433
+    #     'USER': 'deca_api_dev@deca-api-pg-dev',
+    #     'PASSWORD': 'Sot@13522',
+    #     'HOST': 'deca-api-pg-dev.postgres.database.azure.com',
+    #     'PORT': 5432
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            'options': '-c search_path=django,masterdata,userdata,public'
+        },
+        'NAME': 'dplatform_prod',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': 5433
+    }
 }
 
 
